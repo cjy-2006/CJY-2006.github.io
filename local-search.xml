@@ -4,6 +4,32 @@
   
   
   <entry>
+    <title>博客搭建</title>
+    <link href="/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    <url>/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
+    
+    <content type="html"><![CDATA[<p>一  工具准备<br>    1.github账号注册（略）<br>    2.下载git<br>      在下载完成后鼠标右键 git bush here<br>      粘贴以下命令git config –global user.name “Your Name”<br>git config –global user.email “<a href="mailto:&#x65;&#x6d;&#97;&#105;&#x6c;&#64;&#x65;&#x78;&#97;&#x6d;&#x70;&#x6c;&#101;&#46;&#99;&#111;&#x6d;">email@example.com</a>“<br>    3.下载node js<br>    下载完成后输入node -v和npm -v  检验是否成功安装    </p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/2025/10/11/%E4%BD%A0%E5%A5%BD/"/>
+    <url>/2025/10/11/%E4%BD%A0%E5%A5%BD/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: [Deployment](<a href="https://hexo.io/docs/one-command-dep">https://hexo.io/docs/one-command-dep</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>测试文章</title>
     <link href="/2025/10/11/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/"/>
     <url>/2025/10/11/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</url>
@@ -17,6 +43,33 @@
       <tag>测试</tag>
       
       <tag>示例</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello Hexo</title>
+    <link href="/2025/10/11/Hello-Hexo/"/>
+    <url>/2025/10/11/Hello-Hexo/</url>
+    
+    <content type="html"><![CDATA[<h1 id="这是文章正文"><a href="#这是文章正文" class="headerlink" title="这是文章正文"></a>这是文章正文</h1><p>这里可以使用 Markdown 语法编写内容，例如：</p><ul><li>列表项 1</li><li>列表项 2</li></ul><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p>正文内容…</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hexo</tag>
+      
+      <tag>教程</tag>
       
     </tags>
     
