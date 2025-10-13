@@ -8,7 +8,20 @@
     <link href="/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     <url>/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
     
-    <content type="html"><![CDATA[<p>一  工具准备<br>    1.github账号注册（略）<br>    2.下载git<br>      在下载完成后鼠标右键 git bush here<br>      粘贴以下命令git config –global user.name “Your Name”<br>git config –global user.email “<a href="mailto:&#x65;&#109;&#97;&#x69;&#108;&#x40;&#101;&#120;&#x61;&#109;&#112;&#108;&#x65;&#46;&#99;&#x6f;&#109;">email@example.com</a>“<br>    3.下载node js<br>    下载完成后输入node -v和npm -v检查是否安装成功<br>二    创建仓库<br>  进入github网站中点击右上角的头像，再点击Your repositonries点击new按钮，创建自己的仓库填写自己的仓库名，格式为&lt;用户名&gt;.github.io，然后点击Create repository点击创建新文件创建一个新文件，作为我们网站的主页新文件的名字必须为index.html，内容随意，填写之后点击Commit new file提交，<br>四 hexo部署<br>  1.安装 Hexo</p><p>   npm install -g hexo-cli<br>  2.查看版本chhexo -v<br>  3.初始化<br>  hexo init hexo-blog<br>   cd hexo-blog<br>   npm install<br>  4.本地启动<br>   hexo g<br>   hexo server<br>  5.创建文章<br>    Hexo 博客目录中的 _config.yml，打开这个配置是为了在生成文章的时候生成一个同名的资源目录用于存放图片文件。<br>    post_asset_folder: true<br>    执行如下命令创建一篇新文章，名为《测试文章》<br>    hexo new post 测试文章<br>    若要添加图片<br>      1.将hexo-blog文件夹拉入编辑器（如ws code中）打开post新建文件image<br>      2在image中加入图片<br>      3在目标文件中加入<img src="/images/%E3%80%82%E5%9B%BE%E7%89%87%E5%90%8Djpg" alt="图片描述">代码在末尾</p>]]></content>
+    <content type="html"><![CDATA[<p>一  工具准备<br>    1.github账号注册（略）<br>    2.下载git<br>      在下载完成后鼠标右键 git bush here<br>      粘贴以下命令git config –global user.name “Your Name”<br>git config –global user.email “<a href="mailto:&#x65;&#109;&#x61;&#105;&#x6c;&#64;&#101;&#120;&#x61;&#x6d;&#x70;&#108;&#x65;&#x2e;&#x63;&#111;&#x6d;">email@example.com</a>“<br>    3.下载node js<br>    下载完成后输入node -v和npm -v检查是否安装成功<br>二    创建仓库<br>  进入github网站中点击右上角的头像，再点击Your repositonries点击new按钮，创建自己的仓库填写自己的仓库名，格式为&lt;用户名&gt;.github.io，然后点击Create repository点击创建新文件创建一个新文件，作为我们网站的主页新文件的名字必须为index.html，内容随意，填写之后点击Commit new file提交，<br>四 hexo部署<br>  1.安装 Hexo</p><p>   npm install -g hexo-cli<br>  2.查看版本chhexo -v<br>  3.初始化<br>  hexo init hexo-blog<br>   cd hexo-blog<br>   npm install<br>  4.本地启动<br>   hexo g<br>   hexo server<br>  5.创建文章<br>    Hexo 博客目录中的 _config.yml，打开这个配置是为了在生成文章的时候生成一个同名的资源目录用于存放图片文件。<br>    post_asset_folder: true<br>    执行如下命令创建一篇新文章，名为《测试文章》<br>    hexo new post 测试文章<br>    若要添加图片<br>      1.将hexo-blog文件夹拉入编辑器（如ws code中）打开post新建文件image<br>      2在image中加入图片<br>      3在目标文件中加入<img src="/images/%E3%80%82%E5%9B%BE%E7%89%87%E5%90%8Djpg" alt="图片描述">代码在末尾</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>虚拟机搭建</title>
+    <link href="/2025/10/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA/"/>
+    <url>/2025/10/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA/</url>
+    
+    <content type="html"><![CDATA[<p>一 准备工作<br>   1.下载vmwear<br>   2.访问<a href="https://mirrors.tuna.tsinghua.edu.cn/%EF%BC%88%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99%EF%BC%89">https://mirrors.tuna.tsinghua.edu.cn/（清华大学镜像网站）</a><br>   3.下载iso文件<br>二 具体操作<br>   1.点击创建虚拟机。选择自定义。<br>   2.选择稍后安装操作系统<br>   3.选择Linux操作系统<br>   4.更改磁盘<br>   5.一直跟着推荐走直至完成</p><p>ps:笔者在配置时出现以下报错<br>    Mware Workstation 不可恢复错误: (svga)</p><p>Exception 0xc0000005 (access violation) has occurred.</p><p>日志文件位于“D:\vmwear工具\vmweardata\Ubuntu 64 位 (2)\vmware.log”中。  </p><p>您可以请求支持。  </p><p>要收集数据提交给 VMware 技术支持，请选择“帮助”菜单中的“收集支持数据”。</p><p>也可以直接在 Workstation 文件夹中运行“vm-support”脚本。</p><p>我们将根据您的技术支持权利做出回应。</p><p>目前尚未找到解决方案</p>]]></content>
     
     
     
