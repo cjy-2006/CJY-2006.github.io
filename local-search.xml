@@ -4,11 +4,24 @@
   
   
   <entry>
+    <title>linux基础命令</title>
+    <link href="/2025/10/11/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
+    <url>/2025/10/11/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<p>在Linux中一切皆为文件，文件夹名为目录。Linux的命令是模块化的通过空格来体现模块，故在使用命令时要注意这一点<br>linux如何获取管理员权限<br>一.临时权限（低风险，但麻烦）命令：sudo apt update<br>二.永久权限：su  # 切换到root用户<br>            # 输入root用户的密码（若未设置root密码，可能需要先通过sudo设置）<br>            exit  # 回到普通用户<br>注意：1.安全风险：永久使用 root 权限可能因误操作（如删除系统文件）导致系统崩溃，建议优先使用sudo获取<br>        临时权限。<br>      2.root 密码：部分 Linux 发行版（如 Ubuntu）默认禁用 root 密码，需通过sudo passwd root设置 root 密码后才能使用su切换。<br>      3.权限回收：若要取消某个用户的sudo权限，可通过visudo删除对应配置行。</p><p>1.cd（cd ~）：默认切换到当前用户的家目录<br>  cd ..：切换到父目录,..表示当前目录的上一级目录（父目录）<br>  cd .：切换到当前目录（无实际意义）<br>  cd -：切换到上一次所在的目录<br>  cd &#x2F;：切换到根目录<br>2.ls:查看当前目录下的文件和子目录<br>  ls -a:查看更详细的目录<br>  ls -l:以长格式显示文件 &#x2F; 目录的详细信息，每行代表一个文件 &#x2F; 目录，输出包含 7 个核心字<br>  例如-rw-r–r–  1  user  group  1024  Oct 14 15:30  file.txt<br>    各字段含义：<br>    1.权限位（-rw-r–r–）：共 10 位<br>    a.第 1 位：文件类型（-普通文件，d目录，l软链接，b块设备等）<br>    b.后 9 位：权限（分 3 组，每组 3 位，分别对应所有者 u、所属组 g、其他用户 o的权限）r（读，4）、w（写，2）、x（执行，1）， -表示无权限<br>     ps.示例中：所有者有rw（读写），组用户和其他用户有r（只读）。<br>    c.硬链接数（1）：文件被硬链接的次数（目录默认是 2，含.和..）。<br>    d.所有者（user）：文件的所属用户。<br>    e. 所属组（group）：文件的所属用户组。<br>    f.大小（1024）：文件大小（单位字节，目录显示为 4096 等固定值）。<br>    g.修改时间（Oct 14 15:30）：文件最后一次内容修改的时间。<br>    h.文件名 &#x2F; 目录名（file.txt）：文件或目录的名称。</p><p>4.touch :创建文件<br>  touch  file1 file2 file3:创建三个文件<br>  touch &#x2F;目录&#x2F;文件名：在指定目录中创建文件<br>5.cat :查看文件内容<br>  cat file1 file2 file3:查看多个文件<br>  cat &gt; [新文件名]：创建新文件并写入内容<br>  cat &gt;&gt; [文件名]：向已有文件追加内容<br>  cat [文件1] [文件2] &gt; [目标文件]：合并多个文件到新文件<br>6.管道符（|）的使用<br>  管道符用于将前一个命令的输出作为后一个命令的输入，实现命令组合。<br>  格式：命令1 | 命令2<br>  例如<br>  <img src="/.io//%E4%BE%8B%E5%AD%901.png" alt="先用ls将桌面上的文件全列举出来，再用greb命令将其中带有txt的筛出来"><br>7.mv 如何重命名文件 mv 命令本质是 “移动文件”，当源文件和目标路径在同一目录时，就是 “重命名”。<br> • 格式：mv .&#x2F;现在目录的子目录，目标文件的父目录（有点拗口）&#x2F;目标文件 .&#x2F;同上&#x2F;目的地<br> ！<a href="_image_/%E4%BE%8B%E5%AD%902.png">例3</a>   </p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>博客搭建</title>
     <link href="/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     <url>/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
     
-    <content type="html"><![CDATA[<p>一  工具准备<br>    1.github账号注册（略）<br>    2.下载git<br>      在下载完成后鼠标右键 git bush here<br>      粘贴以下命令git config –global user.name “Your Name”<br>git config –global user.email “<a href="mailto:&#x65;&#109;&#x61;&#105;&#x6c;&#64;&#101;&#120;&#x61;&#x6d;&#x70;&#108;&#x65;&#x2e;&#x63;&#111;&#x6d;">email@example.com</a>“<br>    3.下载node js<br>    下载完成后输入node -v和npm -v检查是否安装成功<br>二    创建仓库<br>  进入github网站中点击右上角的头像，再点击Your repositonries点击new按钮，创建自己的仓库填写自己的仓库名，格式为&lt;用户名&gt;.github.io，然后点击Create repository点击创建新文件创建一个新文件，作为我们网站的主页新文件的名字必须为index.html，内容随意，填写之后点击Commit new file提交，<br>四 hexo部署<br>  1.安装 Hexo</p><p>   npm install -g hexo-cli<br>  2.查看版本chhexo -v<br>  3.初始化<br>  hexo init hexo-blog<br>   cd hexo-blog<br>   npm install<br>  4.本地启动<br>   hexo g<br>   hexo server<br>  5.创建文章<br>    Hexo 博客目录中的 _config.yml，打开这个配置是为了在生成文章的时候生成一个同名的资源目录用于存放图片文件。<br>    post_asset_folder: true<br>    执行如下命令创建一篇新文章，名为《测试文章》<br>    hexo new post 测试文章<br>    若要添加图片<br>      1.将hexo-blog文件夹拉入编辑器（如ws code中）打开post新建文件image<br>      2在image中加入图片<br>      3在目标文件中加入<img src="/images/%E3%80%82%E5%9B%BE%E7%89%87%E5%90%8Djpg" alt="图片描述">代码在末尾</p>]]></content>
+    <content type="html"><![CDATA[<p>一  工具准备<br>    1.github账号注册（略）<br>    2.下载git<br>      在下载完成后鼠标右键 git bush here<br>      粘贴以下命令git config –global user.name “Your Name”<br>git config –global user.email “<a href="mailto:&#x65;&#109;&#x61;&#x69;&#108;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#108;&#x65;&#46;&#x63;&#111;&#x6d;">email@example.com</a>“<br>    3.下载node js<br>    下载完成后输入node -v和npm -v检查是否安装成功<br>二    创建仓库<br>  进入github网站中点击右上角的头像，再点击Your repositonries点击new按钮，创建自己的仓库填写自己的仓库名，格式为&lt;用户名&gt;.github.io，然后点击Create repository点击创建新文件创建一个新文件，作为我们网站的主页新文件的名字必须为index.html，内容随意，填写之后点击Commit new file提交，<br>四 hexo部署<br>  1.安装 Hexo</p><p>   npm install -g hexo-cli<br>  2.查看版本chhexo -v<br>  3.初始化<br>  hexo init hexo-blog<br>   cd hexo-blog<br>   npm install<br>  4.本地启动<br>   hexo g<br>   hexo server<br>  5.创建文章<br>    Hexo 博客目录中的 _config.yml，打开这个配置是为了在生成文章的时候生成一个同名的资源目录用于存放图片文件。<br>    post_asset_folder: true<br>    执行如下命令创建一篇新文章，名为《测试文章》<br>    hexo new post 测试文章<br>    若要添加图片<br>      1.将hexo-blog文件夹拉入编辑器（如ws code中）打开post新建文件image<br>      2在image中加入图片<br>      3在目标文件中加入<img src="/images/%E3%80%82%E5%9B%BE%E7%89%87%E5%90%8Djpg" alt="图片描述">代码在末尾</p>]]></content>
     
     
     
@@ -22,19 +35,6 @@
     <url>/2025/10/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA/</url>
     
     <content type="html"><![CDATA[<p>一 准备工作<br>   1.下载vmwear<br>   2.访问<a href="https://mirrors.tuna.tsinghua.edu.cn/%EF%BC%88%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99%EF%BC%89">https://mirrors.tuna.tsinghua.edu.cn/（清华大学镜像网站）</a><br>   3.下载iso文件<br>二 具体操作<br>   1.点击创建虚拟机。选择自定义。<br>   2.选择稍后安装操作系统<br>   3.选择Linux操作系统<br>   4.更改磁盘<br>   5.一直跟着推荐走直至完成</p><p>ps:笔者在配置时出现以下报错<br>    Mware Workstation 不可恢复错误: (svga)</p><p>Exception 0xc0000005 (access violation) has occurred.</p><p>日志文件位于“D:\vmwear工具\vmweardata\Ubuntu 64 位 (2)\vmware.log”中。  </p><p>您可以请求支持。  </p><p>要收集数据提交给 VMware 技术支持，请选择“帮助”菜单中的“收集支持数据”。</p><p>也可以直接在 Workstation 文件夹中运行“vm-support”脚本。</p><p>我们将根据您的技术支持权利做出回应。</p><p>目前尚未找到解决方案</p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>linux基础命令</title>
-    <link href="/2025/10/11/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
-    <url>/2025/10/11/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</url>
-    
-    <content type="html"><![CDATA[<p>在Linux中一切皆为文件，文件夹名为目录。Linux的命令是模块化的通过空格来体现模块，故在使用命令时要注意这一点<br>linux如何获取管理员权限<br>一.临时权限（低风险，但麻烦）命令：sudo apt update<br>二.永久权限：su  # 切换到root用户<br>            # 输入root用户的密码（若未设置root密码，可能需要先通过sudo设置）<br>            exit  # 回到普通用户<br>注意：1.安全风险：永久使用 root 权限可能因误操作（如删除系统文件）导致系统崩溃，建议优先使用sudo获取<br>        临时权限。<br>      2.root 密码：部分 Linux 发行版（如 Ubuntu）默认禁用 root 密码，需通过sudo passwd root设置 root 密码后才能使用su切换。<br>      3.权限回收：若要取消某个用户的sudo权限，可通过visudo删除对应配置行。</p><p>1.cd（cd ~）：默认切换到当前用户的家目录<br>  cd ..：切换到父目录,..表示当前目录的上一级目录（父目录）<br>  cd .：切换到当前目录（无实际意义）<br>  cd -：切换到上一次所在的目录<br>  cd &#x2F;：切换到根目录<br>2.ls:查看当前目录下的文件和子目录<br>  ls -a:查看更详细的目录<br>  ls -l:以长格式显示文件 &#x2F; 目录的详细信息，每行代表一个文件 &#x2F; 目录，输出包含 7 个核心字<br>  例如-rw-r–r–  1  user  group  1024  Oct 14 15:30  file.txt<br>    各字段含义：<br>    1.权限位（-rw-r–r–）：共 10 位<br>    a.第 1 位：文件类型（-普通文件，d目录，l软链接，b块设备等）<br>    b.后 9 位：权限（分 3 组，每组 3 位，分别对应所有者 u、所属组 g、其他用户 o的权限）r（读，4）、w（写，2）、x（执行，1）， -表示无权限<br>     ps.示例中：所有者有rw（读写），组用户和其他用户有r（只读）。<br>    c.硬链接数（1）：文件被硬链接的次数（目录默认是 2，含.和..）。<br>    d.所有者（user）：文件的所属用户。<br>    e. 所属组（group）：文件的所属用户组。<br>    f.大小（1024）：文件大小（单位字节，目录显示为 4096 等固定值）。<br>    g.修改时间（Oct 14 15:30）：文件最后一次内容修改的时间。<br>    h.文件名 &#x2F; 目录名（file.txt）：文件或目录的名称。</p><p>4.touch :创建文件<br>  touch  file1 file2 file3:创建三个文件<br>  touch &#x2F;目录&#x2F;文件名：在指定目录中创建文件<br>5.cat :查看文件内容<br>  cat file1 file2 file3:查看多个文件<br>  cat &gt; [新文件名]：创建新文件并写入内容<br>  cat &gt;&gt; [文件名]：向已有文件追加内容<br>  cat [文件1] [文件2] &gt; [目标文件]：合并多个文件到新文件<br>6.管道符（|）的使用<br>  管道符用于将前一个命令的输出作为后一个命令的输入，实现命令组合。<br>  格式：命令1 | 命令2<br>  例如<br>  <img src="/.io//%E4%BE%8B%E5%AD%901.png" alt="先用ls将桌面上的文件全列举出来，再用greb命令将其中带有txt的筛出来"><br>7.mv 如何重命名文件 mv 命令本质是 “移动文件”，当源文件和目标路径在同一目录时，就是 “重命名”。<br> • 格式：mv .&#x2F;现在目录的子目录，目标文件的父目录（有点拗口）&#x2F;目标文件 .&#x2F;同上&#x2F;目的地<br> ！<a href="_image_/%E4%BE%8B%E5%AD%902.png">例3</a>   </p>]]></content>
     
     
     
