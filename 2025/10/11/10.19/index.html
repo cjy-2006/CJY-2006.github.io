@@ -19,21 +19,21 @@
   <meta name="author" content="CJY-2006">
   <meta name="keywords" content="">
   
-    <meta name="description" content="exe文件产生过程源文件:a.c经过编译变成.obj文件再经过与lib(库文件)的链接最终变成.exe文件  pe格式一种规范和标准，包含程序执行的代码，数据和资源win:  exe. dll. sys.linux:elf等文件都属于pe格式的范畴A. PE文件的格式  ！结构图   a. DOS部首名为：MZ即e_magic二进制代码查看部首对应值为“Ox5a4d”,其中”4d”代表M”5a”">
+    <meta name="description" content="Bit最小单位byte：字节大B   1byte&#x3D;bit1Bit 仅能存储2个信息1byte能存储2^8个信息  数据存储在寄存器，内存或磁盘中  整数的正负表示a.有符号数  最高位作符号位1表示负数，0表示正数，b.无符号数：表示0和正数，无需表示正负，参与数字计算只能是0-255  整数的编码  原码，反码，补码  a. 原码：与有符号数一样，符号位无法参加运算，例如十进制1-1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十月十八日日志">
-<meta property="og:url" content="https://cjy-2006.github.io/2025/10/11/10.18/index.html">
+<meta property="og:title" content="十月十九日日志">
+<meta property="og:url" content="https://cjy-2006.github.io/2025/10/11/10.19/index.html">
 <meta property="og:site_name" content="陈俊宇">
-<meta property="og:description" content="exe文件产生过程源文件:a.c经过编译变成.obj文件再经过与lib(库文件)的链接最终变成.exe文件  pe格式一种规范和标准，包含程序执行的代码，数据和资源win:  exe. dll. sys.linux:elf等文件都属于pe格式的范畴A. PE文件的格式  ！结构图   a. DOS部首名为：MZ即e_magic二进制代码查看部首对应值为“Ox5a4d”,其中”4d”代表M”5a”">
+<meta property="og:description" content="Bit最小单位byte：字节大B   1byte&#x3D;bit1Bit 仅能存储2个信息1byte能存储2^8个信息  数据存储在寄存器，内存或磁盘中  整数的正负表示a.有符号数  最高位作符号位1表示负数，0表示正数，b.无符号数：表示0和正数，无需表示正负，参与数字计算只能是0-255  整数的编码  原码，反码，补码  a. 原码：与有符号数一样，符号位无法参加运算，例如十进制1-1">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-11T13:12:17.000Z">
-<meta property="article:modified_time" content="2025-10-20T12:52:21.359Z">
+<meta property="article:modified_time" content="2025-10-20T12:52:17.323Z">
 <meta property="article:author" content="CJY-2006">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>十月十八日日志 - 陈俊宇</title>
+  <title>十月十九日日志 - 陈俊宇</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="十月十八日日志"></span>
+            <span id="subtitle" data-typed-text="十月十九日日志"></span>
           
         </div>
 
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          1.3k 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          21 分钟
+          11 分钟
         
       </span>
     
@@ -270,30 +270,32 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">十月十八日日志</h1>
+            <h1 id="seo-header">十月十九日日志</h1>
             
             
               <div class="markdown-body">
                 
                 <ol>
-<li><p>exe文件产生过程<br>源文件:a.c经过编译变成.obj文件再经过与lib(库文件)的链接最终变成.exe文件</p>
+<li><p>Bit最小单位<br>byte：字节大B   1byte&#x3D;bit<br>1Bit 仅能存储2个信息<br>1byte能存储2^8个信息</p>
 </li>
-<li><p>pe格式<br>一种规范和标准，包含程序执行的代码，数据和资源<br>win:  exe. dll. sys.<br>linux:elf<br>等文件都属于pe格式的范畴<br>A. PE文件的格式<br>  ！<a href="pe%E6%A0%BC%E5%BC%8F.png">结构图</a><br>   a. DOS部首名为：MZ即e_magic<br>二进制代码查看部首对应值为“Ox5a4d”,其中”4d”代表M”5a”代表“z”<br>DOSStub:一串字符串。Win32 和x64并不能运行DOS<br>   b.pe文件头<br>以pe\0\0开头<br>在image_optional_header32的数据目录表中存有该PE文件的导入表和导出表（包含所调用的函数名称和地址等等）<br>   c.块表：记录每一个块(section)的所在位置<br>   d.块（section）：并不固定程序在编译和链接过程中，编译器会将代码和数据按照 “类型” 分配到不section 中，链接器再通过这些 section 组织最终的可执行文件。常见的默认 section 包括：<br>.text：存放可执行代码（函数体），通常是只读的。<br>.data：存放已初始化的全局变量或静态变量（非零值）。<br>.bss：存放未初始化的全局变量或静态变量（默认值为 0），仅占符号表空间，不占用实际文件大小。<br>.rodata：存放只读数据（如字符串常量）。<br>.stack：栈空间（运行时动态分配，不存放在目标文件中）。<br>.heap：堆空间（运行时动态分配，不存放在目标文件中）。<br>   e.调试信息：区别于release<br>重要概念：<br>  EOP：程序指令入口点即第一条指令的入口点<br>  OEP:原入口点，壳里的概念。加如壳之后入口点会变化，但执行过程中代码还会在原入口点执行即OEP<br>  EPO模糊，病毒概念，病毒在EOP中感染，会用到EPOA的技术<br>  壳：“壳”（Shell）通常指加壳技术（Packing），是一种对可执行文件（如 exe、elf、mach-o 等）进行保护的手段，目的是隐藏原始程序的代码逻辑，增加逆向分析的难度。<br>  imagebase:0x4000000(不修改情况下)指的是可执行文件（如 EXE、DLL 等 PE 格式文件）被操作系统加载到内存时的 “首选起始地址”。<br>  VA：虚拟地址（Virtual Address））采用 虚拟内存管理，程序不会直接操作物理内存（硬件实际的内存地址），而是通过 “虚拟地址” 间接访问。虚拟地址由操作系统和 CPU 的内存管理单元（MMU）转换为物理地址，对程序来说是 “透明” 的。<br>  RVA:RVA 是 相对虚拟地址（Relative Virtual Address） 的缩写，指的是相对于程序加载到内存的基地址（ImageBase）的偏移量。RVA &#x3D; VA - ImageBase<br>                    VA &#x3D; ImageBase + RVA<br>   voffset: 通常是 virtual offset（虚拟偏移量） 的缩写，指的是相对于某个具体虚拟地址（VA）的偏移量，用于描述内存中某一位置与另一个基准虚拟地址之间的距离。与 RVA（相对虚拟地址，相对于程序整体加载基地址 ImageBase 的偏移）不同，voffset 的 “基准” 更灵活 —— 它可以是任意一个虚拟地址（比如某个结构体的起始地址、某个节（section）的起始地址、某个函数的入口地址等），表示从这个基准 VA 开始向后偏移的字节数。<br>   roffset:通常是 relative offset（相对偏移量） 的缩写，指的是相对于某一特定基准地址（而非全局基准）的偏移量。它是一个更通用的概念，用于描述 “某位置与一个局部基准点之间的距离”。<br>工具了解pe<br>peid:能识别壳<br>REtool:<br> PID   ：在计算机领域，PID 特指 “进程 ID（Process ID）”，是操作系统（如 Windows、Linux、macOS 等）为每个正在运行的进程（程序的执行实例）分配的唯一数字编号。 </p>
-<p>程序与进程和线程<br>a.程序<br>是存储在磁盘上的静态文件，由代码（指令）、数据（常量、变量定义）和相关资源（如配置、图标等）组成，是 “未执行的指令集合”。<br>特点：<br>静态存在：不占用 CPU、内存等系统资源，仅作为文件保存在存储介质（如硬盘）中。<br>可复用性：同一个程序可以被多次加载执行（例如多次双击 “记事本.exe”，会启动多个进程）。<br>b.进程是程序的一次动态执行过程，是操作系统进行资源分配（内存、CPU 时间片等）的基本单位。当用户运行一个程序时，操作系统会加载程序到内存，为其分配资源，并创建一个进程来管理执行过程。<br>特点：<br>动态生命周期：有创建（如双击程序）、运行、暂停、终止（如关闭窗口）等状态。<br>独立资源：每个进程拥有独立的内存空间（代码段、数据段、堆、栈），进程间的内存相互隔离（默认不可直接访问）。<br>系统开销较大：进程切换（如 CPU 从一个进程切换到另一个）需要保存和恢复整个进程的上下文（内存状态、寄存器等），开销较高。<br>c.线程是进程内的一个执行流，是 CPU 调度（分配 CPU 时间）的基本单位。一个进程可以包含多个线程，这些线程共享进程的内存空间和资源（如代码段、全局变量、打开的文件句柄等），但每个线程有自己独立的栈（局部变量）和寄存器。  </p>
-<p>第二课<br>C语言中的各个进制表达方法 </p>
-<ol>
-<li>八进制以0作为前缀</li>
-<li>c语言中并没有单独二进制表示方法</li>
-<li>16进制0-9，a-f，且以0x为前缀</li>
-<li></li>
-</ol>
-<p>汇编语言中<br> 十六进制1aH<br> 八进制17o<br> 十进制12D<br> 二进制：110B<br>进制转换</p>
-<ol>
-<li>表格法十进制转二进制<br>1024   512  256  128  64  32  16  8  4  2  1<br>如47在32至64间  故在64下标0，在32下表1 ，47-32 &#x3D;15故16下标08下标1，以此内推<br>若要以1个字节为8位故47应该表达为00101111，若为2字节则在前添0直至16位<br>若有小数则用同样方法，只不过在表格右边加上2的-1，-2，-3…次方，在整数和小数连接处以’.‘连接</li>
-<li>二进制转十六进制<br>十六进制每一位对应二进制四位如47 二进制为00101111，分组，1111转化为F，0010变为2，合起来47十六进制为2f<br>十六进制特点<br>十六进制1位对应二进制4位，故2位对应一个字节，能直接观察这个数在内存中每个字节的内容，一位占4bite</li>
-</ol>
+<li><p>数据存储在寄存器，内存或磁盘中</p>
+</li>
+<li><p>整数的正负表示<br>a.有符号数<br>  最高位作符号位1表示负数，0表示正数，<br>b.无符号数：表示0和正数，无需表示正负，参与数字计算<br>只能是0-255</p>
+</li>
+<li><p>整数的编码<br>  原码，反码，补码<br>  a. 原码：与有符号数一样，符号位无法参加运算，例如十进制1-1&#x3D;0，用原码表示则是00000001+10000001得到结果10000010（十进制的-2）所以不用其作为整数编码<br>  b.反码：正数的反码：与原码（符号位 + 数值位的二进制表示）完全相同。<br> 负数的反码：符号位保持不变（仍为 1），其余数值位按位取反（0 变 1，1 变 0）。</p>
 </li>
 </ol>
+<p>  c.补码 正数的补码就是原码<br>   负数的补码是其反码（将0改为1，将1改为0）加一，如-1补码为：11111111<br>    想求负数的绝对值就再取反+1<br>    0的补码还是0<br>    范围：-128————127<br>    再添加字字节时用符号位（正数是0，负数是1）</p>
+<ol start="5">
+<li>整数的存储方式<br> 在十六进制数0x12 34 56  78  中12，被称为高位（高字节）78被称为地位（低字节）<br> 存储方式：低位优先即低位在低地址<br>    即78  56  34   12（十六进制的一位数字占2bit,两位数字占1byte故两位数字为一整体）<br> 高位存储：高位优先12 34 56 78高位放在低地址<br>  X86系统适用的是低位优先（intel &#x2F;window）<br> 例：0x00 00 00 01<br> 低位优先：01 00 00 00   little_endian<br> 高位优先：00 00 00 01   big_endian<br> ip数据报头使用网络字节序即高位优先</li>
+</ol>
+<p>浮点数定义和储存<br>定义：1.单精度浮点数：float，占4个字节<br>      2.双精度浮点数：double,占8个字节<br>      双精度比单精度精确<br>   例如<br>   float x &#x3D; 1.732f;          单精度<br>   double y - 3.1415926;      双精度<br>   加F就是单精度，不加就是双精度</p>
+<p>浮点数的存储<br>a. 科学计数法<br>  二进制科学计数法类比十进制如<br>  1011.0 &#x3D; 1.01101*2^3,1.01101为尾数，3为指数，0为符号位（ 就是正负号）</p>
+<p>  浮点数试讲特定长度的连续字节（4个或8字节）的所有二进制位（32位或64位）分割为三个域<br>  符号域    (S)  ，占1位，正数为0，负数为1<br>  阶码域：单精度中占8位，双进精度中占11位。对于单精度而言是指数+127，双精度是指数+1023，指数可能为正也能为负，不便与比较   阶码域为非负数便于比较<br>  尾数域（M）体现精度差别，单精度尾数共23位，双精度尾数有52位<br>       因为尾数都是1开头，所以可以不用储存，但使用时仍要带上1</p>
+<pre><code class="hljs">   用于计算存储
+</code></pre>
+<p>公式   V &#x3D; (-1)^s<em>M</em>2^e &#x3D;(-1)^S<em>M</em>2^(E-127)&#x2F;(E-1023)    e为指数   E为阶码<br>浮点数存储格式： 1符号位（0&#x2F;1）2.阶码（  二进制   指数+127&#x2F;1023  8位  ）  3. 尾数域(   M)浮点数的小数部分（二进制，补0至23位或48位）</p>
+<p>M是浮点数转为二进制后的科学计数法小数部分再补0直到23位或是48位<br>阶码&#x3D;（指数+127&#x2F;1023）</p>
 
                 
               </div>
@@ -311,8 +313,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>十月十八日日志</div>
-      <div>https://cjy-2006.github.io/2025/10/11/10.18/</div>
+      <div>十月十九日日志</div>
+      <div>https://cjy-2006.github.io/2025/10/11/10.19/</div>
     </div>
     <div class="license-meta">
       
@@ -356,9 +358,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/10/22/10.22/" title="">
+                      <a href="/2025/10/11/10.20/" title="十月十九日日志">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">十月十九日日志</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -366,8 +368,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/10/11/10.20/" title="十月十九日日志">
-                        <span class="hidden-mobile">十月十九日日志</span>
+                      <a href="/2025/10/11/10.21/" title="十月二十一 日日志">
+                        <span class="hidden-mobile">十月二十一 日日志</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
