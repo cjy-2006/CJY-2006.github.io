@@ -4,24 +4,11 @@
   
   
   <entry>
-    <title></title>
-    <link href="/2025/10/23/10.23/"/>
-    <url>/2025/10/23/10.23/</url>
+    <title>十月二十日日志</title>
+    <link href="/2025/10/11/10.20/"/>
+    <url>/2025/10/11/10.20/</url>
     
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>十月十九日日志</title>
-    <link href="/2025/10/11/10.19/"/>
-    <url>/2025/10/11/10.19/</url>
-    
-    <content type="html"><![CDATA[<ol><li><p>Bit最小单位<br>byte：字节大B   1byte&#x3D;bit<br>1Bit 仅能存储2个信息<br>1byte能存储2^8个信息</p></li><li><p>数据存储在寄存器，内存或磁盘中</p></li><li><p>整数的正负表示<br>a.有符号数<br>  最高位作符号位1表示负数，0表示正数，<br>b.无符号数：表示0和正数，无需表示正负，参与数字计算<br>只能是0-255</p></li><li><p>整数的编码<br>  原码，反码，补码<br>  a. 原码：与有符号数一样，符号位无法参加运算，例如十进制1-1&#x3D;0，用原码表示则是00000001+10000001得到结果10000010（十进制的-2）所以不用其作为整数编码<br>  b.反码：正数的反码：与原码（符号位 + 数值位的二进制表示）完全相同。<br> 负数的反码：符号位保持不变（仍为 1），其余数值位按位取反（0 变 1，1 变 0）。</p></li></ol><p>  c.补码 正数的补码就是原码<br>   负数的补码是其反码（将0改为1，将1改为0）加一，如-1补码为：11111111<br>    想求负数的绝对值就再取反+1<br>    0的补码还是0<br>    范围：-128————127<br>    再添加字字节时用符号位（正数是0，负数是1）</p><ol start="5"><li>整数的存储方式<br> 在十六进制数0x12 34 56  78  中12，被称为高位（高字节）78被称为地位（低字节）<br> 存储方式：低位优先即低位在低地址<br>    即78  56  34   12（十六进制的一位数字占2bit,两位数字占1byte故两位数字为一整体）<br> 高位存储：高位优先12 34 56 78高位放在低地址<br>  X86系统适用的是低位优先（intel &#x2F;window）<br> 例：0x00 00 00 01<br> 低位优先：01 00 00 00   little_endian<br> 高位优先：00 00 00 01   big_endian<br> ip数据报头使用网络字节序即高位优先</li></ol><p>浮点数定义和储存<br>定义：1.单精度浮点数：float，占4个字节<br>      2.双精度浮点数：double,占8个字节<br>      双精度比单精度精确<br>   例如<br>   float x &#x3D; 1.732f;          单精度<br>   double y - 3.1415926;      双精度<br>   加F就是单精度，不加就是双精度</p><p>浮点数的存储<br>a. 科学计数法<br>  二进制科学计数法类比十进制如<br>  1011.0 &#x3D; 1.01101*2^3,1.01101为尾数，3为指数，0为符号位（ 就是正负号）</p><p>  浮点数试讲特定长度的连续字节（4个或8字节）的所有二进制位（32位或64位）分割为三个域<br>  符号域    (S)  ，占1位，正数为0，负数为1<br>  阶码域：单精度中占8位，双进精度中占11位。对于单精度而言是指数+127，双精度是指数+1023，指数可能为正也能为负，不便与比较   阶码域为非负数便于比较<br>  尾数域（M）体现精度差别，单精度尾数共23位，双精度尾数有52位<br>       因为尾数都是1开头，所以可以不用储存，但使用时仍要带上1</p><pre><code class="hljs">   用于计算存储</code></pre><p>公式   V &#x3D; (-1)^s<em>M</em>2^e &#x3D;(-1)^S<em>M</em>2^(E-127)&#x2F;(E-1023)    e为指数   E为阶码<br>浮点数存储格式： 1符号位（0&#x2F;1）2.阶码（  二进制   指数+127&#x2F;1023  8位  ）  3. 尾数域(   M)浮点数的小数部分（二进制，补0至23位或48位）</p><p>M是浮点数转为二进制后的科学计数法小数部分再补0直到23位或是48位<br>阶码&#x3D;（指数+127&#x2F;1023）</p>]]></content>
+    <content type="html"><![CDATA[<p>浮点数阶码问题<br>FLOAT：E&#x3D; e+127<br>Double:E&#x3D; e+1023</p><p>阶码E为了方便比较，为无符号数0单精度八位：范围1<del>154，双精度11位，范围1</del>2046，表示了一个规格化的非零浮点数</p><p>阶码全为0，尾数全为0，表示0<br>阶码全是1，尾数全是0，表示正无穷或负无穷<br>阶码为0而尾数非0时，给出NaN非数</p><p>真正的指数为阶码减去127&#x2F;1023<br>由于阶码可能为正数或负数（如表示很小的数时阶码为负），计算机中通常用移码（Offset Binary）表示阶码，而非原码或补码，原因是移码的大小可直接反映阶码真值的大小，方便浮点数比较（如加减运算中的 “对阶” 操作）。</p><p>移码 &#x3D; 阶码真值 + 偏移量（Bias）<br>单精度浮点数的偏移量为127<br>双精度浮点数偏移量为1023</p><p>C语言数据类型—–内建型别</p><ol><li>字符型：char &#x2F; wchar_t<br>  char占一个字节<br>  wchar_t占2或4个字节，宽字符类型  ，字节数与字符数不同，不慎会导致严重后果<br>char c &#x3D;  ‘a’这是常量字符  若要表示单引号字符应该如此表示’&#39; ‘<br>wchar_t wc &#x3D;L’ c ‘           L表示unicode编码ASCii编码，unicode存储空间<br>字符也分有无符号<br>在char前标signed有符号unsiand是无符号，如果不标signed或signed有无符号由编译器决定<br> 例如windos vs 开发环境中看做有符号</li><li>字符编码<br>存饭字符要通过编码才能储存类比学号<br>ASCII编码用一个字节表示编码因此表示编码不多<br>unicode编码，通常采用2个或4个字节表示一个字符UTF-8占1-4字节<br>                                     UTF-16占2个<br>                                     utf-32占4个字节<br> 如果数字被打上引号则是字符类型应该参照 ascii编码表，如果不加引号就是整数<br> 字符整数相互转换<br> 字符转整数：字符-‘0 ‘<br> 整数转字符：整数+’ 0’<br> 大小写转换<br> 例如：char c &#x3D;’M’<br> c + ‘  a’-‘A’;&#x2F;&#x2F;大写转小写<br> char ch &#x3D;’ y’;<br> c+’A’-‘a’&#x2F;&#x2F;小写转大写</li></ol>]]></content>
     
     
     
@@ -43,24 +30,11 @@
   
   
   <entry>
-    <title>十月二十二日日志</title>
-    <link href="/2025/10/11/10.22/"/>
-    <url>/2025/10/11/10.22/</url>
+    <title>十月十九日日志</title>
+    <link href="/2025/10/11/10.19/"/>
+    <url>/2025/10/11/10.19/</url>
     
-    <content type="html"><![CDATA[<ol><li><p>中学数学与计算机结合<br> 无符号数的范围实质上是公比为2，首相为1的等比数列的求和，根据求和公式a(1-q)^n&#x2F;(1-q)带入数据得到公式（10.21日志）[0,2^n-1]<br> 在有符号的情况下，正数部分因为有符号位所以比无符号的情况少一项故正数部分公式为2^(n-1)-1<br> 有符号的最小值要取反加一设最小值为n位，去除一位符号位剩下(n-1)位，所以最小值是-2^(n-1)<br> 综上所述：有符号的情况取值范围为[-2^(n-1),2^(n-1)-1]</p></li><li><p>c语言数据类型转换</p></li><li><p>强制转换：程序员主动进行转换在目标变量或常量前把目标形式用括号括起来形式  （新类型）变量<br>例：从小到大转换<br>char c &#x3D;’a’;#将ASCII编码a赋值给char c 此时c占一个字节<br>short i &#x3D;(short)c;#将c转型为short再赋值给i<br>int a&#x3D;(int) i;<br>unsigned int u &#x3D;(unsigned int) a#此时将a由有符号变为无符号，此时的符号位也参与计算<br>转化所导致的大小变化是临时的并不改变其原来变量大小，再赋值会将临时结果保存在新变量里<br>例2浮点数转化为整数,是取整并不四舍五入；<br>   int i &#x3D; (int)3.14;此时i就是3<br>例3. 从大到小可能会精度丢失<br>   int x &#x3D;0x12345678#<br>   short y &#x3D; (short)x                 #该16进制数共占4字节short只占2字节此时会丢失两字节精度，丢弃高位字节12 34<br>   在从小到大的转换时，用符号位填充多出的位数例如：00110101变大后应为 000000000 00110101</p><p>   short s &#x3D;-0x12;<br>   int i &#x3D;(int) s;&#x2F;&#x2F;i i&#x3D;0x ff ff ff ee十六进制先转二进制，再用符号位填充后再取反加一再变回十六进制</p></li><li><p>自动转换 （隐式转换）       </p><ol><li>如果参与运算量的类型不同，则先转换成同一类型再开始转换</li><li>转换数据按数据长度增长方向进行，以保证精度不降低。即全部转换成最长的类型<br>若两种数据的字节数相同，且一种有符号一种无符号则转化为无符号类型</li><li>所有浮点数都是以双精度进行的，既是只有单精度浮点数也要转换为双精度浮点数再运算（补充：在浮点数后面带有f的是单精度浮点数（float））</li><li>char 类型和short类型参与运算时必须先转换成int类型</li><li>在赋值运算时赋值号两边量的数据类型不同时，复制好的右边量的类型将转变为左边变量的类型。类型不一样可能会降低精度</li><li>算数转换也遵循以上原则</li><li>函数调用中参数传递时，系统隐式的将实参转化为形参的类型后，付给新参。char和short会被转换成int,float会被转换成double</li><li>printf 函数会将char,short转换成int,float会被转换成double传递</li><li>函数有返回值时，系统将隐式的返回表达式类型转换为返回值类型，赋值给函数<br>例如  int func()<br>{<br>return 3.14f;<br>}#此时返回值就会由浮点数变成整型</li></ol></li></ol>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>十月二十日日志</title>
-    <link href="/2025/10/11/10.20/"/>
-    <url>/2025/10/11/10.20/</url>
-    
-    <content type="html"><![CDATA[<p>浮点数阶码问题<br>FLOAT：E&#x3D; e+127<br>Double:E&#x3D; e+1023</p><p>阶码E为了方便比较，为无符号数0单精度八位：范围1<del>154，双精度11位，范围1</del>2046，表示了一个规格化的非零浮点数</p><p>阶码全为0，尾数全为0，表示0<br>阶码全是1，尾数全是0，表示正无穷或负无穷<br>阶码为0而尾数非0时，给出NaN非数</p><p>真正的指数为阶码减去127&#x2F;1023<br>由于阶码可能为正数或负数（如表示很小的数时阶码为负），计算机中通常用移码（Offset Binary）表示阶码，而非原码或补码，原因是移码的大小可直接反映阶码真值的大小，方便浮点数比较（如加减运算中的 “对阶” 操作）。</p><p>移码 &#x3D; 阶码真值 + 偏移量（Bias）<br>单精度浮点数的偏移量为127<br>双精度浮点数偏移量为1023</p><p>C语言数据类型—–内建型别</p><ol><li>字符型：char &#x2F; wchar_t<br>  char占一个字节<br>  wchar_t占2或4个字节，宽字符类型  ，字节数与字符数不同，不慎会导致严重后果<br>char c &#x3D;  ‘a’这是常量字符  若要表示单引号字符应该如此表示’&#39; ‘<br>wchar_t wc &#x3D;L’ c ‘           L表示unicode编码ASCii编码，unicode存储空间<br>字符也分有无符号<br>在char前标signed有符号unsiand是无符号，如果不标signed或signed有无符号由编译器决定<br> 例如windos vs 开发环境中看做有符号</li><li>字符编码<br>存饭字符要通过编码才能储存类比学号<br>ASCII编码用一个字节表示编码因此表示编码不多<br>unicode编码，通常采用2个或4个字节表示一个字符UTF-8占1-4字节<br>                                     UTF-16占2个<br>                                     utf-32占4个字节<br> 如果数字被打上引号则是字符类型应该参照 ascii编码表，如果不加引号就是整数<br> 字符整数相互转换<br> 字符转整数：字符-‘0 ‘<br> 整数转字符：整数+’ 0’<br> 大小写转换<br> 例如：char c &#x3D;’M’<br> c + ‘  a’-‘A’;&#x2F;&#x2F;大写转小写<br> char ch &#x3D;’ y’;<br> c+’A’-‘a’&#x2F;&#x2F;小写转大写</li></ol>]]></content>
+    <content type="html"><![CDATA[<ol><li><p>Bit最小单位<br>byte：字节大B   1byte&#x3D;bit<br>1Bit 仅能存储2个信息<br>1byte能存储2^8个信息</p></li><li><p>数据存储在寄存器，内存或磁盘中</p></li><li><p>整数的正负表示<br>a.有符号数<br>  最高位作符号位1表示负数，0表示正数，<br>b.无符号数：表示0和正数，无需表示正负，参与数字计算<br>只能是0-255</p></li><li><p>整数的编码<br>  原码，反码，补码<br>  a. 原码：与有符号数一样，符号位无法参加运算，例如十进制1-1&#x3D;0，用原码表示则是00000001+10000001得到结果10000010（十进制的-2）所以不用其作为整数编码<br>  b.反码：正数的反码：与原码（符号位 + 数值位的二进制表示）完全相同。<br> 负数的反码：符号位保持不变（仍为 1），其余数值位按位取反（0 变 1，1 变 0）。</p></li></ol><p>  c.补码 正数的补码就是原码<br>   负数的补码是其反码（将0改为1，将1改为0）加一，如-1补码为：11111111<br>    想求负数的绝对值就再取反+1<br>    0的补码还是0<br>    范围：-128————127<br>    再添加字字节时用符号位（正数是0，负数是1）</p><ol start="5"><li>整数的存储方式<br> 在十六进制数0x12 34 56  78  中12，被称为高位（高字节）78被称为地位（低字节）<br> 存储方式：低位优先即低位在低地址<br>    即78  56  34   12（十六进制的一位数字占2bit,两位数字占1byte故两位数字为一整体）<br> 高位存储：高位优先12 34 56 78高位放在低地址<br>  X86系统适用的是低位优先（intel &#x2F;window）<br> 例：0x00 00 00 01<br> 低位优先：01 00 00 00   little_endian<br> 高位优先：00 00 00 01   big_endian<br> ip数据报头使用网络字节序即高位优先</li></ol><p>浮点数定义和储存<br>定义：1.单精度浮点数：float，占4个字节<br>      2.双精度浮点数：double,占8个字节<br>      双精度比单精度精确<br>   例如<br>   float x &#x3D; 1.732f;          单精度<br>   double y - 3.1415926;      双精度<br>   加F就是单精度，不加就是双精度</p><p>浮点数的存储<br>a. 科学计数法<br>  二进制科学计数法类比十进制如<br>  1011.0 &#x3D; 1.01101*2^3,1.01101为尾数，3为指数，0为符号位（ 就是正负号）</p><p>  浮点数试讲特定长度的连续字节（4个或8字节）的所有二进制位（32位或64位）分割为三个域<br>  符号域    (S)  ，占1位，正数为0，负数为1<br>  阶码域：单精度中占8位，双进精度中占11位。对于单精度而言是指数+127，双精度是指数+1023，指数可能为正也能为负，不便与比较   阶码域为非负数便于比较<br>  尾数域（M）体现精度差别，单精度尾数共23位，双精度尾数有52位<br>       因为尾数都是1开头，所以可以不用储存，但使用时仍要带上1</p><pre><code class="hljs">   用于计算存储</code></pre><p>公式   V &#x3D; (-1)^s<em>M</em>2^e &#x3D;(-1)^S<em>M</em>2^(E-127)&#x2F;(E-1023)    e为指数   E为阶码<br>浮点数存储格式： 1符号位（0&#x2F;1）2.阶码（  二进制   指数+127&#x2F;1023  8位  ）  3. 尾数域(   M)浮点数的小数部分（二进制，补0至23位或48位）</p><p>M是浮点数转为二进制后的科学计数法小数部分再补0直到23位或是48位<br>阶码&#x3D;（指数+127&#x2F;1023）</p>]]></content>
     
     
     
@@ -82,11 +56,24 @@
   
   
   <entry>
-    <title>博客搭建</title>
-    <link href="/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    <url>/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
+    <title>十月二十二日日志</title>
+    <link href="/2025/10/11/10.22/"/>
+    <url>/2025/10/11/10.22/</url>
     
-    <content type="html"><![CDATA[<p>一  工具准备<br>    1.github账号注册（略）<br>    2.下载git<br>      在下载完成后鼠标右键 git bush here<br>      粘贴以下命令git config –global user.name “Your Name”<br>git config –global user.email “<a href="mailto:&#101;&#x6d;&#x61;&#x69;&#108;&#64;&#x65;&#120;&#97;&#x6d;&#x70;&#x6c;&#x65;&#x2e;&#99;&#111;&#x6d;">email@example.com</a>“<br>    3.下载node js<br>    下载完成后输入node -v和npm -v检查是否安装成功<br>二    创建仓库<br>  进入github网站中点击右上角的头像，再点击Your repositonries点击new按钮，创建自己的仓库填写自己的仓库名，格式为&lt;用户名&gt;.github.io，然后点击Create repository点击创建新文件创建一个新文件，作为我们网站的主页新文件的名字必须为index.html，内容随意，填写之后点击Commit new file提交，<br>四 hexo部署<br>  1.安装 Hexo</p><p>   npm install -g hexo-cli<br>  2.查看版本chhexo -v<br>  3.初始化<br>  hexo init hexo-blog<br>   cd hexo-blog<br>   npm install<br>  4.本地启动<br>   hexo g<br>   hexo server<br>  5.创建文章<br>    Hexo 博客目录中的 _config.yml，打开这个配置是为了在生成文章的时候生成一个同名的资源目录用于存放图片文件。<br>    post_asset_folder: true<br>    执行如下命令创建一篇新文章，名为《测试文章》<br>    hexo new post 测试文章<br>    若要添加图片<br>      1.将hexo-blog文件夹拉入编辑器（如ws code中）打开post新建文件image<br>      2在image中加入图片<br>      3在目标文件中加入<img src="/images/jpg" alt="图片描述"></p>]]></content>
+    <content type="html"><![CDATA[<ol><li><p>中学数学与计算机结合<br> 无符号数的范围实质上是公比为2，首相为1的等比数列的求和，根据求和公式a(1-q)^n&#x2F;(1-q)带入数据得到公式（10.21日志）[0,2^n-1]<br> 在有符号的情况下，正数部分因为有符号位所以比无符号的情况少一项故正数部分公式为2^(n-1)-1<br> 有符号的最小值要取反加一设最小值为n位，去除一位符号位剩下(n-1)位，所以最小值是-2^(n-1)<br> 综上所述：有符号的情况取值范围为[-2^(n-1),2^(n-1)-1]</p></li><li><p>c语言数据类型转换</p></li><li><p>强制转换：程序员主动进行转换在目标变量或常量前把目标形式用括号括起来形式  （新类型）变量<br>例：从小到大转换<br>char c &#x3D;’a’;#将ASCII编码a赋值给char c 此时c占一个字节<br>short i &#x3D;(short)c;#将c转型为short再赋值给i<br>int a&#x3D;(int) i;<br>unsigned int u &#x3D;(unsigned int) a#此时将a由有符号变为无符号，此时的符号位也参与计算<br>转化所导致的大小变化是临时的并不改变其原来变量大小，再赋值会将临时结果保存在新变量里<br>例2浮点数转化为整数,是取整并不四舍五入；<br>   int i &#x3D; (int)3.14;此时i就是3<br>例3. 从大到小可能会精度丢失<br>   int x &#x3D;0x12345678#<br>   short y &#x3D; (short)x                 #该16进制数共占4字节short只占2字节此时会丢失两字节精度，丢弃高位字节12 34<br>   在从小到大的转换时，用符号位填充多出的位数例如：00110101变大后应为 000000000 00110101</p><p>   short s &#x3D;-0x12;<br>   int i &#x3D;(int) s;&#x2F;&#x2F;i i&#x3D;0x ff ff ff ee十六进制先转二进制，再用符号位填充后再取反加一再变回十六进制</p></li><li><p>自动转换 （隐式转换）       </p><ol><li>如果参与运算量的类型不同，则先转换成同一类型再开始转换</li><li>转换数据按数据长度增长方向进行，以保证精度不降低。即全部转换成最长的类型<br>若两种数据的字节数相同，且一种有符号一种无符号则转化为无符号类型</li><li>所有浮点数都是以双精度进行的，既是只有单精度浮点数也要转换为双精度浮点数再运算（补充：在浮点数后面带有f的是单精度浮点数（float））</li><li>char 类型和short类型参与运算时必须先转换成int类型</li><li>在赋值运算时赋值号两边量的数据类型不同时，复制好的右边量的类型将转变为左边变量的类型。类型不一样可能会降低精度</li><li>算数转换也遵循以上原则</li><li>函数调用中参数传递时，系统隐式的将实参转化为形参的类型后，付给新参。char和short会被转换成int,float会被转换成double</li><li>printf 函数会将char,short转换成int,float会被转换成double传递</li><li>函数有返回值时，系统将隐式的返回表达式类型转换为返回值类型，赋值给函数<br>例如  int func()<br>{<br>return 3.14f;<br>}#此时返回值就会由浮点数变成整型</li></ol></li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>十月二十三日日志</title>
+    <link href="/2025/10/11/10.23/"/>
+    <url>/2025/10/11/10.23/</url>
+    
+    <content type="html"><![CDATA[<ol><li>Python中的逻辑运算符<ol><li><p>假值（Falsy）对象<br> Python 中明确被定义为假值的对象只有以下几类，其余所有对象均为真值：<br> 布尔值False本身<br> 空值None<br> 数值中的 “零”：<br> 整数0<br> 浮点数0.0、-0.0<br> 复数0j（实部和虚部均为 0）<br> 空的序列 &#x2F; 集合 &#x2F; 映射：<br> 空字符串’’、””<br> 空列表[]<br> 空元组()<br> 空字典{}<br> 空集合set()<br> 空范围对象range(0)（无元素的 range）<br> 自定义对象中，若定义了__bool__()方法且返回False，或定义了__len__()方法且返回0（优先判断__bool__）。</p></li><li><p>真值（Truthy）对象<br> 除上述假值外的所有对象均为真值，典型例子：</p></li><li><p>逻辑运算符<br>and    逻辑与    全为真则真，有一假则假    遇第一个假值则返回，不再计算    最后被求值的操作数<br>or    逻辑或    有一真则真，全为假则假    遇第一个真值则返回，不再计算    最后被求值的操作数<br>not    逻辑非    对真 &#x2F; 假取反    无（仅单操作数）    布尔值（True&#x2F;False）</p></li><li><p>位运算符</p></li></ol></li></ol>]]></content>
     
     
     
@@ -100,6 +87,19 @@
     <url>/2025/10/11/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</url>
     
     <content type="html"><![CDATA[<p>在Linux中一切皆为文件，文件夹名为目录。Linux的命令是模块化的通过空格来体现模块，故在使用命令时要注意这一点<br>linux如何获取管理员权限<br>一.临时权限（低风险，但麻烦）命令：sudo apt update<br>二.永久权限：su  # 切换到root用户<br>            # 输入root用户的密码（若未设置root密码，可能需要先通过sudo设置）<br>            exit  # 回到普通用户<br>注意：1.安全风险：永久使用 root 权限可能因误操作（如删除系统文件）导致系统崩溃，建议优先使用sudo获取<br>        临时权限。<br>      2.root 密码：部分 Linux 发行版（如 Ubuntu）默认禁用 root 密码，需通过sudo passwd root设置 root 密码后才能使用su切换。<br>      3.权限回收：若要取消某个用户的sudo权限，可通过visudo删除对应配置行。</p><ol><li><p>cd（cd ~）：默认切换到当前用户的家目录<br>cd ..：切换到父目录,..表示当前目录的上一级目录（父目录）<br>cd .：切换到当前目录（无实际意义）<br>cd -：切换到上一次所在的目录<br>cd &#x2F;：切换到根目录</p></li><li><p>ls:查看当前目录下的文件和子目录<br>ls -a:查看更详细的目录<br>ls -l:以长格式显示文件 &#x2F; 目录的详细信息，每行代表一个文件 &#x2F; 目录，输出包含 7 个核心字<br>例如-rw-r–r–  1  user  group  1024  Oct 14 15:30  file.txt<br> 各字段含义：<br> 1.权限位（-rw-r–r–）：共 10 位<br> a.第 1 位：文件类型（-普通文件，d目录，l软链接，b块设备等）<br> b.后 9 位：权限（分 3 组，每组 3 位，分别对应所有者 u、所属组 g、其他用户 o的权限）r（读，4）、w（写，2）、x（执行，1）， -表示无权限<br>  ps.示例中：所有者有rw（读写），组用户和其他用户有r（只读）。<br> c.硬链接数（1）：文件被硬链接的次数（目录默认是 2，含.和..）。<br> d.所有者（user）：文件的所属用户。<br> e. 所属组（group）：文件的所属用户组。<br> f.大小（1024）：文件大小（单位字节，目录显示为 4096 等固定值）。<br> g.修改时间（Oct 14 15:30）：文件最后一次内容修改的时间。<br> h.文件名 &#x2F; 目录名（file.txt）：文件或目录的名称。</p></li><li><p>touch :创建文件<br>touch  file1 file2 file3:创建三个文件<br>touch &#x2F;目录&#x2F;文件名：在指定目录中创建文件</p></li><li><p>cat :查看文件内容<br>cat file1 file2 file3:查看多个文件<br>cat &gt; [新文件名]：创建新文件并写入内容,ctrl+d建是退出编辑模式<br>cat &gt;&gt; [文件名]：向已有文件追加内容<br>cat [文件1] [文件2] &gt; [目标文件]：合并多个文件到新文件</p></li><li><p>管道符（|）的使用<br>管道符用于将前一个命令的输出作为后一个命令的输入，实现命令组合。<br>格式：命令1 | 命令2<br>例如<br><img src="/.io//%E4%BE%8B%E5%AD%901.png" alt="先用ls将桌面上的文件全列举出来，再用greb命令将其中带有txt的筛出来"></p></li><li><p>mv 如何重命名文件 mv 命令本质是 “移动文件”，当源文件和目标路径在同一目录时，就是 “重命名”。<br>格式：mv .&#x2F;现在目录的子目录，目标文件的父目录（有点拗口）&#x2F;目标文件 .&#x2F;同上&#x2F;目的地<br>！<a href="%E4%BE%8B%E5%AD%902.png">例3</a></p></li><li><p>ln -s:软连接，旨在简化路径，其用途类似于Python中import 模块名 as 别名<br>注意：若源文件移动位置，软连接会失效，需重新创建。<br>例：ln -s &#x2F;home&#x2F;cjy&#x2F;桌面&#x2F;b.txt  toc  #将b.txt文件简称为toc</p></li><li><p>cp:复制文件</p><h1 id="复制当前目录的-note-txt-到-home-user-backup-目录下"><a href="#复制当前目录的-note-txt-到-home-user-backup-目录下" class="headerlink" title="复制当前目录的 note.txt 到 &#x2F;home&#x2F;user&#x2F;backup 目录下"></a>复制当前目录的 note.txt 到 &#x2F;home&#x2F;user&#x2F;backup 目录下</h1><p>cp note.txt &#x2F;home&#x2F;user&#x2F;backup&#x2F;</p><h1 id="复制文件并在目标位置重命名（若目标是新文件名）"><a href="#复制文件并在目标位置重命名（若目标是新文件名）" class="headerlink" title="复制文件并在目标位置重命名（若目标是新文件名）"></a>复制文件并在目标位置重命名（若目标是新文件名）</h1><p>cp data.csv &#x2F;tmp&#x2F;archive&#x2F;data_backup.csv</p><p>注：复制目录需加 -r（递归）：cp -r .&#x2F;docs &#x2F;mnt&#x2F;usb&#x2F;</p></li><li><p>绝对路径和相对路径<br>   绝对路径：从根目录（&#x2F;）开始的完整路径，唯一确定文件位置。<br>   示例：&#x2F;home&#x2F;user&#x2F;downloads&#x2F;file.zip、&#x2F;etc&#x2F;nginx&#x2F;nginx.conf。<br>   相对路径：相对于当前所在目录的路径，依赖当前位置。<br>   符号：.&#x2F; 表示当前目录（可省略），..&#x2F; 表示上一级目录。</p></li></ol><p>   示例：<br>   若当前在 &#x2F;home&#x2F;user，则 .&#x2F;docs&#x2F;note.txt 等价于 docs&#x2F;note.txt（相对路径），对应绝对路径 &#x2F;home&#x2F; user&#x2F;docs&#x2F;note.txt。<br>   ..&#x2F;public&#x2F;index.html 表示 “上一级目录的 public 文件夹中的 index.html”。<br>11. 设置用户密码、root 密码及切换用户<br>    设置密码<br>    当前用户改密码：passwd（输入原密码，再输新密码）。<br>    管理员给其他用户设密码：sudo passwd 用户名（需 sudo 权限）。<br>    设置 root 密码（默认可能未启用）：sudo passwd root（输入当前用户密码，再设 root 新密码）。<br>    切换用户<br>    切换到普通用户：su - 用户名（- 表示加载目标用户的环境变量）。<br>    切换到 root 用户：su - root（需输入 root 密码）或 sudo -i（直接获取 root 环境，无需 root 密码，需当前用户在 sudoers 列表）。<br>    退出切换的用户：exit 或 Ctrl+D。<br>12. 文本编辑器的基本使用（写入、保存）<br>    简单编辑器 nano（推荐新手）<br>    打开 &#x2F; 创建文件：nano 文件名（如 nano test.txt）。<br>    写入内容：直接键盘输入即可。<br>    保存：按 Ctrl+O（提示确认文件名，回车确认）。<br>    退出：按 Ctrl+X。<br>13. 压缩文件<br>   a.tar命令<br>    压缩：tar -czf 压缩包名。tar.gz 源文件&#x2F;目录（此处指的是目标文件在压缩包的那个位置）<br>    解压：tar -xzf 压缩包名.tar.gz  # x&#x3D;解压，z&#x3D;gzip，f&#x3D;指定文件名<br>   b.zip格式<br>   压缩：zip 压缩包名.zip 文件1 文件2 目录<br>   解压：将zip改为unzip<br>14.  查看基本的日志文件<br>    cat &#x2F;var&#x2F;log&#x2F;syslog  # 查看全部内容（适合小文件）<br>   tail -n 20 &#x2F;var&#x2F;log&#x2F;auth.log  # 查看最后20行</p><p>   tail -f &#x2F;var&#x2F;log&#x2F;syslog  # 实时跟踪新增内容（按 Ctrl+C 退出）</p><ol start="13"><li><p>常用的二进制文件目录<br>&#x2F;bin：基本系统命令（如 ls、cp，所有用户可执行）。<br>&#x2F;sbin：系统管理命令（如 reboot、ifconfig，通常需 root 权限）。<br>&#x2F;usr&#x2F;bin：用户常用命令（如 python、git）。<br>&#x2F;usr&#x2F;sbin：用户系统管理命令（如 nginx、apache2）。<br>&#x2F;usr&#x2F;local&#x2F;bin：本地编译安装的程序（如手动安装的软件）。</p></li><li><p>给文件赋权（chmod）<br>  chmod 用于修改文件 &#x2F; 目录的读写执行权限：<br> 数字法（推荐）<br> 权限对应数字：r&#x3D;4，w&#x3D;2，x&#x3D;1，每组权限为 3 个数字之和（所有者 u、组 g、其他 o）。REAd&#x3D;r write &#x3D;w   execute(执行) &#x3D;x<br>  示例：<br> bash<br>  chmod 755 script.sh  # 所有者：rwx（7&#x3D;4+2+1），组和其他：rx（5&#x3D;4+1）<br>  chmod 644 note.txt   # 所有者：rw（6&#x3D;4+2），组和其他：r（4）</p></li><li><p>递归删除<br>删除目录及其所有子文件 &#x2F; 子目录，用 rm -r（r&#x3D; 递归），强制删除加 -f（不提示）。<br>示例：<br>bash<br>rm -r old_dir&#x2F;        # 删除 old_dir 及内容（会提示确认）<br>rm -rf temp&#x2F;          # 强制删除 temp 及内容</p></li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>博客搭建</title>
+    <link href="/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    <url>/2025/10/11/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
+    
+    <content type="html"><![CDATA[<p>一  工具准备<br>    1.github账号注册（略）<br>    2.下载git<br>      在下载完成后鼠标右键 git bush here<br>      粘贴以下命令git config –global user.name “Your Name”<br>git config –global user.email “<a href="mailto:&#x65;&#109;&#97;&#105;&#x6c;&#x40;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#46;&#x63;&#111;&#x6d;">email@example.com</a>“<br>    3.下载node js<br>    下载完成后输入node -v和npm -v检查是否安装成功<br>二    创建仓库<br>  进入github网站中点击右上角的头像，再点击Your repositonries点击new按钮，创建自己的仓库填写自己的仓库名，格式为&lt;用户名&gt;.github.io，然后点击Create repository点击创建新文件创建一个新文件，作为我们网站的主页新文件的名字必须为index.html，内容随意，填写之后点击Commit new file提交，<br>四 hexo部署<br>  1.安装 Hexo</p><p>   npm install -g hexo-cli<br>  2.查看版本chhexo -v<br>  3.初始化<br>  hexo init hexo-blog<br>   cd hexo-blog<br>   npm install<br>  4.本地启动<br>   hexo g<br>   hexo server<br>  5.创建文章<br>    Hexo 博客目录中的 _config.yml，打开这个配置是为了在生成文章的时候生成一个同名的资源目录用于存放图片文件。<br>    post_asset_folder: true<br>    执行如下命令创建一篇新文章，名为《测试文章》<br>    hexo new post 测试文章<br>    若要添加图片<br>      1.将hexo-blog文件夹拉入编辑器（如ws code中）打开post新建文件image<br>      2在image中加入图片<br>      3在目标文件中加入<img src="/images/jpg" alt="图片描述"></p>]]></content>
     
     
     
