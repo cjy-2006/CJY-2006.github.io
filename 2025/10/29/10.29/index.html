@@ -19,21 +19,21 @@
   <meta name="author" content="CJY-2006">
   <meta name="keywords" content="">
   
-    <meta name="description" content="整型 short int 简写为short 短整型   2字节 int 标准整型    四字节 float 4 char 2 long  win x86,x64为4    linux x86 为4 x64为8 float 4 double 8 bool 4 BOOL 4  typedef:定义函数类比于import …as…typedf 就函数名  新函数名  C语言数据长度和取值范围 例如想分">
+    <meta name="description" content="编码风格········![屏幕截图 2025-10-29 213005](C:\Users\legion\Pictures\Screenshots\屏幕截图 2025-10-29 213005.png)断行要按照运算符进行切断，切断换行要空四格 注释：精准、简洁，不冗余 （1）注释原则：“解释为什么，而非是什么”  周哥强调：代码本身应 “自解释”（通过命名、格式），注释仅补充逻辑背景或复杂逻辑">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十月二十一 日日志">
-<meta property="og:url" content="https://cjy-2006.github.io/2025/10/11/10.21/index.html">
+<meta property="og:title" content="陈俊宇">
+<meta property="og:url" content="https://cjy-2006.github.io/2025/10/29/10.29/index.html">
 <meta property="og:site_name" content="陈俊宇">
-<meta property="og:description" content="整型 short int 简写为short 短整型   2字节 int 标准整型    四字节 float 4 char 2 long  win x86,x64为4    linux x86 为4 x64为8 float 4 double 8 bool 4 BOOL 4  typedef:定义函数类比于import …as…typedf 就函数名  新函数名  C语言数据长度和取值范围 例如想分">
+<meta property="og:description" content="编码风格········![屏幕截图 2025-10-29 213005](C:\Users\legion\Pictures\Screenshots\屏幕截图 2025-10-29 213005.png)断行要按照运算符进行切断，切断换行要空四格 注释：精准、简洁，不冗余 （1）注释原则：“解释为什么，而非是什么”  周哥强调：代码本身应 “自解释”（通过命名、格式），注释仅补充逻辑背景或复杂逻辑">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-10-11T13:12:17.000Z">
-<meta property="article:modified_time" content="2025-10-22T13:09:57.243Z">
+<meta property="article:published_time" content="2025-10-29T14:29:48.230Z">
+<meta property="article:modified_time" content="2025-10-30T11:32:38.186Z">
 <meta property="article:author" content="CJY-2006">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>十月二十一 日日志 - 陈俊宇</title>
+  <title>陈俊宇</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="十月二十一 日日志"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-10-11 21:12" pubdate>
-          2025年10月11日 晚上
+        <time datetime="2025-10-29 22:29" pubdate>
+          2025年10月29日 晚上
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          938 字
+          804 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          8 分钟
+          7 分钟
         
       </span>
     
@@ -270,24 +270,54 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">十月二十一 日日志</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
                 
-                <ol>
-<li>整型<br> short int 简写为short 短整型   2字节<br> int 标准整型    四字节<br> float 4<br> char 2<br> long  win x86,x64为4    linux x86 为4 x64为8<br> float 4<br> double 8<br> bool 4<br> BOOL 4</li>
-</ol>
-<p>typedef:定义函数类比于import …as…<br>typedf 就函数名  新函数名</p>
-<ol start="2">
-<li>C语言数据长度和取值范围<br> 例如想分配100个char长度  不要写100<em>1（硬编码，失去可移植性），而要写100</em>sizeof（char）为了防止平台改变造成长度变化带来的后果</li>
-</ol>
-<p>  sizeof计算类型或者变量长度，字节为单位，是操作符，不是函数。在编译阶段确定而不是运行阶段</p>
-<ol start="3">
-<li>各个类型表示的数的范围<br>n位无符号表示范围：[0,2^n-1]<br>n位有符号数范围[-2^(n-1),2^(n-1)-1]<br>如果整数超出该类型的范围则会溢出<br>char 有符号范围[-128,127]  无符号范围[0,255]<br>short    有符号范围   [-32768,32767]   无符号范围     [0,65535]<br>最值表示<br>无符号<br>unsigned max &#x3D;-1;&#x2F;&#x2F;1111111111111111<br>usigned int min &#x3D; 0<br>有符号<br>int max ox7fffffff;&#x2F;&#x2F;0111 1111 1111 1111<br>int min 0x0000000;&#x2F;&#x2F;1000 0000 0000 0000<br>无符号<br>unsigned char max &#x3D;-1&#x2F;&#x2F;11111111<br>uunsigned char min &#x3D;0<br>有符号<br>char max &#x3D;0x7f ;&#x2F;&#x2F;0111 1111<br>char min &#x3D;0x80;&#x2F;&#x2F;1000 0000</li>
-</ol>
-<p>整数溢出的后果<br>例如：(char)(-128*-1),-128*-1&#x3D;128二进制为10000000,取反加一，得到10000000，但这是绝对值，整数溢出，因此绝对值128在char中是-128<br>以此内推可得结论：上溢出一变成最小值<br>                下溢出一变成最大值<br>注：无论有误符号都遵循该结论<br>例[-128,127],127+1 &#x3D;-128<br>  [0,255],255+1 &#x3D;0</p>
-<p>典型问题如千年虫或是UNIX 2038年问题</p>
+                <h1 id="编码风格"><a href="#编码风格" class="headerlink" title="编码风格"></a>编码风格</h1><h2 id="········-屏幕截图-2025-10-29-213005-C-Users-legion-Pictures-Screenshots-屏幕截图-2025-10-29-213005-png"><a href="#········-屏幕截图-2025-10-29-213005-C-Users-legion-Pictures-Screenshots-屏幕截图-2025-10-29-213005-png" class="headerlink" title="········![屏幕截图 2025-10-29 213005](C:\Users\legion\Pictures\Screenshots\屏幕截图 2025-10-29 213005.png)"></a>········![屏幕截图 2025-10-29 213005](C:\Users\legion\Pictures\Screenshots\屏幕截图 2025-10-29 213005.png)</h2><p>断行要按照运算符进行切断，切断换行要空四格</p>
+<p>注释：精准、简洁，不冗余</p>
+<p>（1）注释原则：“解释为什么，而非是什么”</p>
+<ul>
+<li><p>周哥强调：代码本身应 “自解释”（通过命名、格式），注释仅补充逻辑背景或复杂逻辑。</p>
+</li>
+<li><p>反例（冗余）：int i &#x3D; 0;  &#x2F;&#x2F; 定义变量i并赋值0（代码已明确，注释多余）</p>
+</li>
+<li><p>正例（必要）：int i &#x3D; 0;  &#x2F;&#x2F; 从0开始遍历数组（因数组下标从0起始）</p>
+</li>
+</ul>
+<p>（2）注释格式：分场景使用</p>
+<ul>
+<li><p><strong>单行注释</strong>：&#x2F;&#x2F; 注释内容，用于单行逻辑说明（如变量用途、条件判断目的）；</p>
+</li>
+<li><p>位置：要么在代码上方，要么在代码右侧（右侧需空 2 个空格，避免拥挤）。</p>
+</li>
+<li><p><strong>多行注释</strong>：&#x2F;* 注释内容 *&#x2F;，用于函数头部、复杂模块说明（需包含 “功能 + 参数 + 返回值 + 注意事项”）。</p>
+</li>
+</ul>
+<p>（3）禁忌：禁止 “过时注释”</p>
+<ul>
+<li><p>代码修改后，必须同步更新注释（如函数参数变更，注释仍写旧参数，会误导他人）。</p>
+</li>
+<li><p><strong>空格规则</strong>：</p>
+</li>
+<li><p>运算符（+、-、&#x3D;、&gt; 等）前后加空格（如a &#x3D; b + c，非a&#x3D;b+c）；</p>
+</li>
+<li><p>逗号、分号后加空格（如for (i&#x3D;0; i&lt;10; i++)，非for(i&#x3D;0;i&lt;10;i++)）；</p>
+</li>
+<li><p>括号内侧不加空格（如if (a&gt;0)，非if ( a&gt;0 )）。</p>
+</li>
+</ul>
+<p>把作用相似的语句组成代码块，代码快之间空行</p>
+<p>变量与函数</p>
+<ul>
+<li><p>变量：定义必初始化（局部变量默认随机值），作用域最小化（在哪用在哪定义）；</p>
+</li>
+<li><p>函数：单一职责（一事一函数），参数≤4 个（多则用结构体封装）。</p>
+</li>
+</ul>
+<p>缩进：统一标准，避免 “混搭”</p>
+<p><strong>规范</strong>：推荐 4 个空格缩进（不推荐 Tab，因不同编辑器 Tab 宽度不同），层级嵌套必须对齐。</p>
 
                 
               </div>
@@ -305,8 +335,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>十月二十一 日日志</div>
-      <div>https://cjy-2006.github.io/2025/10/11/10.21/</div>
+      <div></div>
+      <div>https://cjy-2006.github.io/2025/10/29/10.29/</div>
     </div>
     <div class="license-meta">
       
@@ -318,7 +348,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年10月11日</div>
+          <div>2025年10月29日</div>
         </div>
       
       
@@ -350,18 +380,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/10/11/10.23/" title="十月二十三日日志">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">十月二十三日日志</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/10/11/10.20/" title="十月二十日日志">
-                        <span class="hidden-mobile">十月二十日日志</span>
+                      <a href="/2025/10/29/10.30/" title="">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
