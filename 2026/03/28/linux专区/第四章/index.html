@@ -27,7 +27,7 @@
 <meta property="og:description" content="软件安装yum命令yum：RPM包安装管理器，用于 cent os 语法： yum -y install  |    remove   |  search  软件名称 -y选项：是否自动同意 apt命令用于Ubuntu，区别于cent os Ubuntu使用apt管理器，Ubuntu安装包是.deb 语法和yum一样 语法： apt [-y] install  |    remove   |  s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-28T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-29T12:39:05.954Z">
+<meta property="article:modified_time" content="2026-03-30T13:09:15.198Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -325,7 +325,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.3k 字
         
       </span>
     
@@ -336,7 +336,7 @@
         
         
         
-          25 分钟
+          28 分钟
         
       </span>
     
@@ -777,7 +777,22 @@
 </ul>
 <h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>指操作系统运行时记录的关键性息，已辅助系统运行<br>在Linux中，env命令用于查看环境变量</p>
 <p>环境变量是keyaValue形式即键值对</p>
-<h3 id="环境变量-path"><a href="#环境变量-path" class="headerlink" title="环境变量 path"></a>环境变量 path</h3>
+<h3 id="环境变量-path"><a href="#环境变量-path" class="headerlink" title="环境变量 path"></a>环境变量 path</h3><ul>
+<li>PATH 是操作系统中用于指定可执行文件搜索路径的核心环境变量，决定命令行能否直接调用程序。</li>
+<li>path记录了程序的搜索路径，即无论在何处都可以执行记录的程序</li>
+</ul>
+<h3 id="符号"><a href="#符号" class="headerlink" title="$符号"></a>$符号</h3><p>用于直接取环境变量的值</p>
+<h3 id="自行设置环境变量"><a href="#自行设置环境变量" class="headerlink" title="自行设置环境变量"></a>自行设置环境变量</h3><p>临时生效：语法：export 变量名 &#x3D; 值<br>永久生效：</p>
+<ol>
+<li>针对当前用户生效配置在当前用户的~&#x2F;bashrc文件中</li>
+<li>针对所有用户生效，配置在系统&#x2F;etc&#x2F;profile</li>
+<li>通过语法source 配置文件，进行立即生效，或者重新登陆finalshell生效</li>
+</ol>
+<pre><code class="language-linux">export PATH=$PATH:hello
+vim /etc/profile
+#在文件底追写export PATH=$PATH:hello的路径
+</code></pre>
+
                 
               </div>
             
