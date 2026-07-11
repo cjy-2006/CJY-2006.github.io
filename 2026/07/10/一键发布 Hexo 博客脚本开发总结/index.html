@@ -1,0 +1,1048 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一键发布 Hexo 博客脚本开发总结一、项目目标开发一个开发周期短、无需 GUI 的自动化脚本，实现 Markdown 文件一键发布到 GitHub Pages（Hexo 博客）。 用户只需输入：  Markdown 文件绝对路径 文章分类  脚本自动完成整个发布流程。  二、整体流程123456789101112131415161718192021222324252627282930313233">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一键发布 Hexo 博客脚本开发总结">
+<meta property="og:url" content="http://example.com/2026/07/10/%E4%B8%80%E9%94%AE%E5%8F%91%E5%B8%83%20Hexo%20%E5%8D%9A%E5%AE%A2%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一键发布 Hexo 博客脚本开发总结一、项目目标开发一个开发周期短、无需 GUI 的自动化脚本，实现 Markdown 文件一键发布到 GitHub Pages（Hexo 博客）。 用户只需输入：  Markdown 文件绝对路径 文章分类  脚本自动完成整个发布流程。  二、整体流程123456789101112131415161718192021222324252627282930313233">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-10T10:52:05.000Z">
+<meta property="article:modified_time" content="2026-07-10T10:52:05.948Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>一键发布 Hexo 博客脚本开发总结 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="一键发布 Hexo 博客脚本开发总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-07-10 18:52" pubdate>
+          2026年7月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">一键发布 Hexo 博客脚本开发总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一键发布-Hexo-博客脚本开发总结"><a href="#一键发布-Hexo-博客脚本开发总结" class="headerlink" title="一键发布 Hexo 博客脚本开发总结"></a>一键发布 Hexo 博客脚本开发总结</h1><h2 id="一、项目目标"><a href="#一、项目目标" class="headerlink" title="一、项目目标"></a>一、项目目标</h2><p>开发一个<strong>开发周期短、无需 GUI 的自动化脚本</strong>，实现 Markdown 文件一键发布到 GitHub Pages（Hexo 博客）。</p>
+<p>用户只需输入：</p>
+<ul>
+<li>Markdown 文件绝对路径</li>
+<li>文章分类</li>
+</ul>
+<p>脚本自动完成整个发布流程。</p>
+<hr>
+<h1 id="二、整体流程"><a href="#二、整体流程" class="headerlink" title="二、整体流程"></a>二、整体流程</h1><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs text">输入文章路径<br>        │<br>        ▼<br>修改 Markdown Front Matter<br>        │<br>        ▼<br>移动到 Hexo/source/_posts<br>        │<br>        ▼<br>Hexo clean<br>        │<br>        ▼<br>Hexo generate<br>        │<br>        ▼<br>Git Clone 临时仓库<br>(镜像失败自动切官方)<br>        │<br>        ▼<br>public 覆盖 tmp_blog<br>        │<br>        ▼<br>git add<br>        │<br>        ▼<br>git commit<br>        │<br>        ▼<br>git push<br>        │<br>        ▼<br>删除 tmp_blog<br>        │<br>        ▼<br>发布完成<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="三、模块设计"><a href="#三、模块设计" class="headerlink" title="三、模块设计"></a>三、模块设计</h1><h2 id="1-TITLE"><a href="#1-TITLE" class="headerlink" title="1. TITLE()"></a>1. TITLE()</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>根据文件路径获取文章标题。</p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">D:/note/python.md<br></code></pre></td></tr></table></figure>
+
+<p>返回：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">python<br></code></pre></td></tr></table></figure>
+
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">路径<br> ↓<br>split(&quot;/&quot;)<br> ↓<br>取最后一个元素<br> ↓<br>split(&quot;.&quot;)<br> ↓<br>去掉扩展名<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2-modify"><a href="#2-modify" class="headerlink" title="2. modify()"></a>2. modify()</h2><h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h3><p>自动添加 Hexo Front Matter。</p>
+<p>生成内容例如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">subprocess</span> <span class="hljs-string">常用语法整理</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2026-07-09 14:23:18</span><br><span class="hljs-attr">categories:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">Python</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<p>然后与原 Markdown 内容拼接重新写回文件。</p>
+<h3 id="涉及知识"><a href="#涉及知识" class="headerlink" title="涉及知识"></a>涉及知识</h3><ul>
+<li>文件读取</li>
+<li>文件写入</li>
+<li>f-string</li>
+<li>time.strftime()</li>
+</ul>
+<hr>
+<h2 id="3-command"><a href="#3-command" class="headerlink" title="3. command()"></a>3. command()</h2><h3 id="作用-2"><a href="#作用-2" class="headerlink" title="作用"></a>作用</h3><p>统一封装所有终端命令。</p>
+<p>核心：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">subprocess.run()<br></code></pre></td></tr></table></figure>
+
+<p>执行成功：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">returncode == 0<br></code></pre></td></tr></table></figure>
+
+<p>执行失败：</p>
+<p>输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">stderr<br></code></pre></td></tr></table></figure>
+
+<p>统一调用格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">command(<span class="hljs-string">&quot;git add .&quot;</span>)<br>command(<span class="hljs-string">&quot;git push&quot;</span>)<br>command(<span class="hljs-string">&quot;npx hexo generate&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>以后无需重复编写：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">subprocess.run(...)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-handle"><a href="#4-handle" class="headerlink" title="4. handle()"></a>4. handle()</h2><h3 id="作用-3"><a href="#作用-3" class="headerlink" title="作用"></a>作用</h3><p>处理：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">git clone<br></code></pre></td></tr></table></figure>
+
+<p>失败自动重试。</p>
+<p>流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs text">镜像仓库<br>    │<br>    ▼<br>成功 → 结束<br>    │<br>失败<br>    ▼<br>官方 GitHub<br>    │<br>最多重试三次<br>    ▼<br>仍失败<br>    ▼<br>返回错误<br></code></pre></td></tr></table></figure>
+
+<p>属于<strong>异常恢复模块</strong>。</p>
+<hr>
+<h2 id="5-deal"><a href="#5-deal" class="headerlink" title="5. deal()"></a>5. deal()</h2><h3 id="作用-4"><a href="#作用-4" class="headerlink" title="作用"></a>作用</h3><p>处理用户输入。</p>
+<p>去除输入两边的双引号。</p>
+<p>例如：</p>
+<p>输入：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">&quot;C:\Users\abc\a.md&quot;<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">C:\Users\abc\a.md<br></code></pre></td></tr></table></figure>
+
+<p>建议实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">deal</span>(<span class="hljs-params">path</span>):<br>    <span class="hljs-keyword">return</span> path.strip(<span class="hljs-string">&#x27;&quot;&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="四、command-封装思想"><a href="#四、command-封装思想" class="headerlink" title="四、command() 封装思想"></a>四、command() 封装思想</h1><p>脚本中所有命令统一调用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">command(...)<br></code></pre></td></tr></table></figure>
+
+<p>而不是直接：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">subprocess.run(...)<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">command(<span class="hljs-string">&quot;git add .&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>内部流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text">subprocess.run()<br>        │<br>        ▼<br>获取 returncode<br>        │<br>        ▼<br>打印执行状态<br>        │<br>        ▼<br>返回状态码<br></code></pre></td></tr></table></figure>
+
+<p>这样以后：</p>
+<ul>
+<li>增加日志</li>
+<li>增加超时</li>
+<li>增加异常处理</li>
+</ul>
+<p>都只需要修改一个函数。</p>
+<p>属于<strong>封装（Encapsulation）</strong>。</p>
+<hr>
+<h1 id="五、涉及到的系统命令"><a href="#五、涉及到的系统命令" class="headerlink" title="五、涉及到的系统命令"></a>五、涉及到的系统命令</h1><h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><h3 id="移动文件"><a href="#移动文件" class="headerlink" title="移动文件"></a>移动文件</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-built_in">move</span> 文件 目标目录<br></code></pre></td></tr></table></figure>
+
+<h3 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-built_in">cd</span> /d D:\blog<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="清缓存"><a href="#清缓存" class="headerlink" title="清缓存"></a>清缓存</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">npx hexo clean<br></code></pre></td></tr></table></figure>
+
+<h3 id="生成静态页面"><a href="#生成静态页面" class="headerlink" title="生成静态页面"></a>生成静态页面</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">npx hexo generate<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">git clone ...<br></code></pre></td></tr></table></figure>
+
+<h3 id="修改远程仓库"><a href="#修改远程仓库" class="headerlink" title="修改远程仓库"></a>修改远程仓库</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">git remote <span class="hljs-built_in">set</span>-url origin ...<br></code></pre></td></tr></table></figure>
+
+<h3 id="添加文件"><a href="#添加文件" class="headerlink" title="添加文件"></a>添加文件</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">git add .<br></code></pre></td></tr></table></figure>
+
+<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">git commit -m &quot;更新博客&quot;<br></code></pre></td></tr></table></figure>
+
+<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">git push origin main<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="PowerShell"><a href="#PowerShell" class="headerlink" title="PowerShell"></a>PowerShell</h2><h3 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Copy-Item</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="删除目录"><a href="#删除目录" class="headerlink" title="删除目录"></a>删除目录</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Remove-Item</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="六、开发过程中解决的问题"><a href="#六、开发过程中解决的问题" class="headerlink" title="六、开发过程中解决的问题"></a>六、开发过程中解决的问题</h1><h2 id="1-append"><a href="#1-append" class="headerlink" title="1. append()"></a>1. append()</h2><p>错误写法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">b = a.append(i)<br></code></pre></td></tr></table></figure>
+
+<p>原因：</p>
+<p><code>append()</code> 返回：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-literal">None</span><br></code></pre></td></tr></table></figure>
+
+<p>正确写法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">a.append(i)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2-read-与-write"><a href="#2-read-与-write" class="headerlink" title="2. read() 与 write()"></a>2. read() 与 write()</h2><p>不能同时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">mode=<span class="hljs-string">&quot;w&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>再执行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">read()<br></code></pre></td></tr></table></figure>
+
+<p>正确流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">读取<br> ↓<br>拼接<br> ↓<br>写入<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-returncode"><a href="#3-returncode" class="headerlink" title="3. returncode"></a>3. returncode</h2><p>Linux、Windows 命令统一规则：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">0<br>↓<br>执行成功<br></code></pre></td></tr></table></figure>
+
+<p>非 0：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">执行失败<br></code></pre></td></tr></table></figure>
+
+<p>因此：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> a == <span class="hljs-number">0</span>:<br></code></pre></td></tr></table></figure>
+
+<p>表示执行成功。</p>
+<hr>
+<h2 id="4-try-与-returncode"><a href="#4-try-与-returncode" class="headerlink" title="4. try 与 returncode"></a>4. try 与 returncode</h2><p>最终没有使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    ...<br><span class="hljs-keyword">except</span>:<br>    ...<br></code></pre></td></tr></table></figure>
+
+<p>原因：</p>
+<p>所有命令已经通过：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">returncode<br></code></pre></td></tr></table></figure>
+
+<p>判断成功与失败。</p>
+<p>对于开发周期较短的自动化脚本已经足够。</p>
+<hr>
+<h2 id="5-git-clone-重试"><a href="#5-git-clone-重试" class="headerlink" title="5. git clone 重试"></a>5. git clone 重试</h2><p>发现：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">mirror.ghproxy.com<br></code></pre></td></tr></table></figure>
+
+<p>存在连接失败。</p>
+<p>因此加入：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">镜像<br> ↓<br>失败<br> ↓<br>官方 GitHub<br> ↓<br>重试<br></code></pre></td></tr></table></figure>
+
+<p>提高发布稳定性。</p>
+<hr>
+<h1 id="七、目前存在的问题"><a href="#七、目前存在的问题" class="headerlink" title="七、目前存在的问题"></a>七、目前存在的问题</h1><h2 id="1-Hexo-命令依赖当前目录"><a href="#1-Hexo-命令依赖当前目录" class="headerlink" title="1. Hexo 命令依赖当前目录"></a>1. Hexo 命令依赖当前目录</h2><p>建议：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-built_in">cd</span> /d D:\blog &amp;&amp; npx hexo clean<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2-Front-Matter-格式"><a href="#2-Front-Matter-格式" class="headerlink" title="2. Front Matter 格式"></a>2. Front Matter 格式</h2><p>目前格式仍需优化：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span><br><span class="hljs-attr">date:</span><br><span class="hljs-attr">categories:</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Git-Commit"><a href="#3-Git-Commit" class="headerlink" title="3. Git Commit"></a>3. Git Commit</h2><p>若：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">nothing to commit<br></code></pre></td></tr></table></figure>
+
+<p>应继续执行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">git push<br></code></pre></td></tr></table></figure>
+
+<p>而不是退出程序。</p>
+<hr>
+<h2 id="4-路径处理"><a href="#4-路径处理" class="headerlink" title="4. 路径处理"></a>4. 路径处理</h2><p>目前仍然依赖：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">split(<span class="hljs-string">&quot;/&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>建议后续改为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">os.path<br></code></pre></td></tr></table></figure>
+
+<p>提高兼容性。</p>
+<hr>
+<h1 id="八、项目特点"><a href="#八、项目特点" class="headerlink" title="八、项目特点"></a>八、项目特点</h1><h2 id="开发特点"><a href="#开发特点" class="headerlink" title="开发特点"></a>开发特点</h2><ul>
+<li>开发周期短</li>
+<li>单文件实现</li>
+<li>无 GUI</li>
+<li>自动化程度高</li>
+<li>函数职责清晰</li>
+<li>易于维护</li>
+</ul>
+<hr>
+<h2 id="涉及技术"><a href="#涉及技术" class="headerlink" title="涉及技术"></a>涉及技术</h2><ul>
+<li>Python 基础</li>
+<li>文件 IO</li>
+<li>subprocess</li>
+<li>time</li>
+<li>Git</li>
+<li>Hexo</li>
+<li>Windows CMD</li>
+<li>PowerShell</li>
+<li>GitHub Pages</li>
+</ul>
+<hr>
+<h1 id="九、后续可扩展方向"><a href="#九、后续可扩展方向" class="headerlink" title="九、后续可扩展方向"></a>九、后续可扩展方向</h1><ul>
+<li>配置文件（博客路径、仓库地址）</li>
+<li>日志系统（记录每次发布）</li>
+<li>多分类支持</li>
+<li>Tags 自动生成</li>
+<li>自动读取 Markdown 第一行作为标题</li>
+<li>GUI（Tkinter 或 PyQt）</li>
+<li>发布完成后自动打开博客主页</li>
+<li>自动检测 Git、Node.js、Hexo 是否安装</li>
+<li>使用 <code>pathlib</code>、<code>shutil</code> 等标准库替代部分系统命令</li>
+</ul>
+<hr>
+<h1 id="十、项目总结"><a href="#十、项目总结" class="headerlink" title="十、项目总结"></a>十、项目总结</h1><p>该脚本实现了 <strong>Markdown → Hexo → GitHub Pages</strong> 的一键自动化发布流程，将原本需要手动执行的多个命令整合到一个 Python 程序中。</p>
+<p>整个开发过程中主要练习了以下能力：</p>
+<ul>
+<li>函数封装与模块划分</li>
+<li>Python 文件读写</li>
+<li>subprocess 调用系统命令</li>
+<li>Git 自动化操作</li>
+<li>Hexo 静态博客生成</li>
+<li>命令执行状态判断与失败重试</li>
+<li>自动化脚本设计思路</li>
+</ul>
+<p>虽然这是一个轻量级脚本，但已经具备了完整自动化工具的基本结构，为后续开发更复杂的工程项目（如增加配置、日志、GUI、云端部署等）打下了基础。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/markdown/" class="category-chain-item">markdown</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>一键发布 Hexo 博客脚本开发总结</div>
+      <div>http://example.com/2026/07/10/一键发布 Hexo 博客脚本开发总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年7月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/07/10/%E6%A0%87%E5%87%86%E5%8C%96%E4%BA%BA%E6%A0%BC%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/07/07/hello-world/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
