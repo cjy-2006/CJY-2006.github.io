@@ -1,0 +1,1337 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="title: SQL 多表查询学习笔记date: 2026-08-04 00:34:04categories: sqlSQL 多表查询学习笔记一、多表查询概述1. 什么是多表查询实际项目中，一个业务的数据通常不会存放在一张表中，而是根据业务关系拆分到多个表。 例如： 用户表：    id name    1 张三   2 李四   订单表：    id user_id money    101">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL 多表查询学习笔记">
+<meta property="og:url" content="http://example.com/2026/08/05/SQL%20%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="title: SQL 多表查询学习笔记date: 2026-08-04 00:34:04categories: sqlSQL 多表查询学习笔记一、多表查询概述1. 什么是多表查询实际项目中，一个业务的数据通常不会存放在一张表中，而是根据业务关系拆分到多个表。 例如： 用户表：    id name    1 张三   2 李四   订单表：    id user_id money    101">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-05T06:24:10.000Z">
+<meta property="article:modified_time" content="2026-08-05T06:24:10.415Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>SQL 多表查询学习笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SQL 多表查询学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-08-05 14:24" pubdate>
+          2026年8月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">SQL 多表查询学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <hr>
+<h2 id="title-SQL-多表查询学习笔记date-2026-08-04-00-34-04categories-sql"><a href="#title-SQL-多表查询学习笔记date-2026-08-04-00-34-04categories-sql" class="headerlink" title="title: SQL 多表查询学习笔记date: 2026-08-04 00:34:04categories: sql"></a>title: SQL 多表查询学习笔记<br>date: 2026-08-04 00:34:04<br>categories: sql</h2><h1 id="SQL-多表查询学习笔记"><a href="#SQL-多表查询学习笔记" class="headerlink" title="SQL 多表查询学习笔记"></a>SQL 多表查询学习笔记</h1><h2 id="一、多表查询概述"><a href="#一、多表查询概述" class="headerlink" title="一、多表查询概述"></a>一、多表查询概述</h2><h2 id="1-什么是多表查询"><a href="#1-什么是多表查询" class="headerlink" title="1. 什么是多表查询"></a>1. 什么是多表查询</h2><p>实际项目中，一个业务的数据通常不会存放在一张表中，而是根据业务关系拆分到多个表。</p>
+<p>例如：</p>
+<p>用户表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>张三</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+</tr>
+</tbody></table>
+<p>订单表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>user_id</th>
+<th>money</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>101</td>
+<td>1</td>
+<td>200</td>
+</tr>
+<tr>
+<td>102</td>
+<td>2</td>
+<td>500</td>
+</tr>
+</tbody></table>
+<p>两个表通过：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">users.id <span class="hljs-operator">=</span> orders.user_id<br></code></pre></td></tr></table></figure>
+
+<p>建立关系。</p>
+<p>多表查询：</p>
+<blockquote>
+<p>根据表之间的关联关系，将多个表的数据组合查询。</p>
+</blockquote>
+<hr>
+<h1 id="二、多表查询分类"><a href="#二、多表查询分类" class="headerlink" title="二、多表查询分类"></a>二、多表查询分类</h1><p>SQL 多表查询主要分为：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">多表查询<br><br>|<span class="hljs-string"></span><br><span class="hljs-string">+-- 连接查询 JOIN</span><br><span class="hljs-string"></span>|<span class="hljs-string">       </span>|<br>|<span class="hljs-string">       +-- 内连接 INNER JOIN</span><br><span class="hljs-string"></span>|<span class="hljs-string">       </span>|<br>|<span class="hljs-string">       +-- 外连接 OUTER JOIN</span><br><span class="hljs-string"></span>|<span class="hljs-string">       </span>|<span class="hljs-string">       </span>|<br>|<span class="hljs-string">       </span>|<span class="hljs-string">       +-- 左外连接 LEFT JOIN</span><br><span class="hljs-string"></span>|<span class="hljs-string">       </span>|<span class="hljs-string">       </span>|<br>|<span class="hljs-string">       </span>|<span class="hljs-string">       +-- 右外连接 RIGHT JOIN</span><br><span class="hljs-string"></span>|<span class="hljs-string">       </span>|<span class="hljs-string">       </span>|<br>|<span class="hljs-string">       </span>|<span class="hljs-string">       +-- 全外连接 FULL JOIN</span><br><span class="hljs-string"></span>|<span class="hljs-string">       </span>|<br>|<span class="hljs-string">       +-- 自连接 SELF JOIN</span><br><span class="hljs-string"></span>|<br>+-- 子查询 SUBQUERY<br>        |<span class="hljs-string"></span><br><span class="hljs-string">        +-- 标量子查询</span><br><span class="hljs-string">        </span>|<br>        +-- 列子查询<br>        |<span class="hljs-string"></span><br><span class="hljs-string">        +-- 行子查询</span><br><span class="hljs-string">        </span>|<br>        +-- 表子查询<br><br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="三、连接查询-JOIN"><a href="#三、连接查询-JOIN" class="headerlink" title="三、连接查询 JOIN"></a>三、连接查询 JOIN</h1><h2 id="1-JOIN概念"><a href="#1-JOIN概念" class="headerlink" title="1. JOIN概念"></a>1. JOIN概念</h2><p>JOIN 用于将多个表按照关联字段连接。</p>
+<p>基本结构：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> 字段<br><span class="hljs-keyword">FROM</span> 表<span class="hljs-number">1</span><br><span class="hljs-keyword">JOIN</span> 表<span class="hljs-number">2</span><br><span class="hljs-keyword">ON</span> 表<span class="hljs-number">1.</span>字段 <span class="hljs-operator">=</span> 表<span class="hljs-number">2.</span>字段;<br></code></pre></td></tr></table></figure>
+
+
+<p>组成：</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FROM</td>
+<td>指定主表</td>
+</tr>
+<tr>
+<td>JOIN</td>
+<td>连接其他表</td>
+</tr>
+<tr>
+<td>ON</td>
+<td>指定连接条件</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="四、内连接-INNER-JOIN"><a href="#四、内连接-INNER-JOIN" class="headerlink" title="四、内连接 INNER JOIN"></a>四、内连接 INNER JOIN</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>内连接：</p>
+<blockquote>
+<p>只返回两个表中满足连接条件的数据。</p>
+</blockquote>
+<p>例如：</p>
+<p>用户表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>张三</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+</tr>
+<tr>
+<td>3</td>
+<td>王五</td>
+</tr>
+</tbody></table>
+<p>订单表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>user_id</th>
+<th>money</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>200</td>
+</tr>
+</tbody></table>
+<p>SQL：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span><br>users.name,<br>orders.money<br><span class="hljs-keyword">FROM</span> users<br><span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> orders<br><span class="hljs-keyword">ON</span> users.id <span class="hljs-operator">=</span> orders.user_id;<br></code></pre></td></tr></table></figure>
+
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>money</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>100</td>
+</tr>
+<tr>
+<td>李四</td>
+<td>200</td>
+</tr>
+</tbody></table>
+<p>王五没有订单，因此不会显示。</p>
+<hr>
+<h2 id="2-应用场景"><a href="#2-应用场景" class="headerlink" title="2. 应用场景"></a>2. 应用场景</h2><h3 id="电商订单查询"><a href="#电商订单查询" class="headerlink" title="电商订单查询"></a>电商订单查询</h3><p>需要展示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">用户名<br>商品名称<br>订单金额<br>购买时间<br></code></pre></td></tr></table></figure>
+
+
+<p>涉及：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs markdown">用户表<br><span class="hljs-bullet">+</span><br>订单表<br><span class="hljs-bullet">+</span><br>商品表<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h3 id="社交系统"><a href="#社交系统" class="headerlink" title="社交系统"></a>社交系统</h3><p>例如：</p>
+<p>查询：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">用户<br><span class="hljs-bullet">+</span><br>好友关系<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="五、外连接-OUTER-JOIN"><a href="#五、外连接-OUTER-JOIN" class="headerlink" title="五、外连接 OUTER JOIN"></a>五、外连接 OUTER JOIN</h1><h3 id="1-定义-1"><a href="#1-定义-1" class="headerlink" title="1. 定义"></a>1. 定义</h3><p>外连接：</p>
+<blockquote>
+<p>保留某一侧表的全部数据，即使另一侧没有匹配。</p>
+</blockquote>
+<p>分类：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span><br><br><span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span><br><br><span class="hljs-keyword">FULL</span> <span class="hljs-keyword">JOIN</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-左外连接-LEFT-JOIN"><a href="#1-左外连接-LEFT-JOIN" class="headerlink" title="1.左外连接 LEFT JOIN"></a>1.左外连接 LEFT JOIN</h3><h4 id="1-定义-2"><a href="#1-定义-2" class="headerlink" title="1. 定义"></a>1. 定义</h4><p>左表全部保留。</p>
+<p>右表不存在：</p>
+<p>显示 NULL。</p>
+<p>语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> A<br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> B<br><span class="hljs-keyword">ON</span> A.id<span class="hljs-operator">=</span>B.id;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-示例"><a href="#2-示例" class="headerlink" title="2. 示例"></a>2. 示例</h4><p>用户表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>张三</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+</tr>
+<tr>
+<td>3</td>
+<td>王五</td>
+</tr>
+</tbody></table>
+<p>订单表：</p>
+<table>
+<thead>
+<tr>
+<th>user_id</th>
+<th>money</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2</td>
+<td>200</td>
+</tr>
+</tbody></table>
+<p>SQL：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span><br>users.name,<br>orders.money<br><span class="hljs-keyword">FROM</span> users<br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> orders<br><span class="hljs-keyword">ON</span> users.id<span class="hljs-operator">=</span>orders.user_id;<br></code></pre></td></tr></table></figure>
+
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>money</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>100</td>
+</tr>
+<tr>
+<td>李四</td>
+<td>200</td>
+</tr>
+<tr>
+<td>王五</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<h4 id="3-应用场景"><a href="#3-应用场景" class="headerlink" title="3. 应用场景"></a>3. 应用场景</h4><p>查询：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">所有用户消费情况<br></code></pre></td></tr></table></figure>
+
+
+<p>即使：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用户没有订单<br></code></pre></td></tr></table></figure>
+
+<p>也需要显示。</p>
+<p>典型：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs markdown">会员系统<br><br>用户表<br><span class="hljs-bullet">+</span><br>消费记录表<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-右外连接-RIGHT-JOIN"><a href="#2-右外连接-RIGHT-JOIN" class="headerlink" title="2.右外连接 RIGHT JOIN"></a>2.右外连接 RIGHT JOIN</h3><h4 id="1-定义-3"><a href="#1-定义-3" class="headerlink" title="1. 定义"></a>1. 定义</h4><p>右连接：</p>
+<blockquote>
+<p>保留右表全部数据。</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> A<br><span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> B<br><span class="hljs-keyword">ON</span> A.id<span class="hljs-operator">=</span>B.id;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-特点"><a href="#2-特点" class="headerlink" title="2. 特点"></a>2. 特点</h4><p>RIGHT JOIN 可以转换成 LEFT JOIN。</p>
+<p>例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">A <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> B<br></code></pre></td></tr></table></figure>
+
+
+<p>等价：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">B <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> A<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-应用场景-1"><a href="#3-应用场景-1" class="headerlink" title="3. 应用场景"></a>3. 应用场景</h4><p>实际开发较少。</p>
+<p>通常调整表顺序代替。</p>
+<h3 id="3-全外连接-FULL-JOIN"><a href="#3-全外连接-FULL-JOIN" class="headerlink" title="3.全外连接 FULL JOIN"></a>3.全外连接 FULL JOIN</h3><h4 id="1-定义-4"><a href="#1-定义-4" class="headerlink" title="1. 定义"></a>1. 定义</h4><p>FULL JOIN：</p>
+<blockquote>
+<p>左右两个表的数据全部保留。</p>
+</blockquote>
+<p>例如：</p>
+<p>A表：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">1<br>2<br>3<br></code></pre></td></tr></table></figure>
+
+
+<p>B表：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">2<br>3<br>4<br></code></pre></td></tr></table></figure>
+
+
+<p>结果：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">1<br>2<br>3<br>4<br></code></pre></td></tr></table></figure>
+
+
+<p>不存在的数据：</p>
+<p>使用 NULL 填充。</p>
+<h4 id="2-MySQL实现"><a href="#2-MySQL实现" class="headerlink" title="2. MySQL实现"></a>2. MySQL实现</h4><p>MySQL不支持 FULL JOIN。</p>
+<p>可以使用：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> A<br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> B<br><span class="hljs-keyword">ON</span> A.id<span class="hljs-operator">=</span>B.id<br><br><span class="hljs-keyword">UNION</span><br><br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> A<br><span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> B<br><span class="hljs-keyword">ON</span> A.id<span class="hljs-operator">=</span>B.id;<br></code></pre></td></tr></table></figure>
+
+<p>####3. 应用场景</p>
+<p>数据同步比较：</p>
+<p>例如：</p>
+<p>旧系统：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">用户<span class="hljs-selector-tag">A</span><br>用户<span class="hljs-selector-tag">B</span><br></code></pre></td></tr></table></figure>
+
+
+<p>新系统：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs armasm">用户<span class="hljs-keyword">B</span><br>用户C<br></code></pre></td></tr></table></figure>
+
+
+<p>查询：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">新增用户<br>删除用户<br>共同用户<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="六、自连接-SELF-JOIN"><a href="#六、自连接-SELF-JOIN" class="headerlink" title="六、自连接 SELF JOIN"></a>六、自连接 SELF JOIN</h1><h2 id="1-定义-5"><a href="#1-定义-5" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>自连接：</p>
+<blockquote>
+<p>一张表连接自己。</p>
+</blockquote>
+<p>例如员工表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>manager_id</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>老板</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>2</td>
+<td>张三</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>李四</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>员工和领导都来自同一张表。</p>
+<hr>
+<h2 id="2-实例"><a href="#2-实例" class="headerlink" title="2. 实例"></a>2. 实例</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span><br>e.name <span class="hljs-keyword">AS</span> 员工,<br>m.name <span class="hljs-keyword">AS</span> 领导<br><span class="hljs-keyword">FROM</span> employee e<br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> employee m<br><span class="hljs-keyword">ON</span> e.manager_id<span class="hljs-operator">=</span>m.id;<br></code></pre></td></tr></table></figure>
+
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>员工</th>
+<th>领导</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>老板</td>
+</tr>
+<tr>
+<td>李四</td>
+<td>老板</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3-应用场景-2"><a href="#3-应用场景-2" class="headerlink" title="3. 应用场景"></a>3. 应用场景</h2><h3 id="公司组织架构"><a href="#公司组织架构" class="headerlink" title="公司组织架构"></a>公司组织架构</h3><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs 1c">CEO<br><br> <span class="hljs-string">|</span><br>经理<br><br> <span class="hljs-string">|</span><br>员工<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h3 id="商品分类"><a href="#商品分类" class="headerlink" title="商品分类"></a>商品分类</h3><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs 1c">电子产品<br><br> <span class="hljs-string">|</span><br>手机<br><br> <span class="hljs-string">|</span><br>智能手机<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h3 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h3><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs 1c">根目录<br><br> <span class="hljs-string">|</span><br>文件夹<br><br> <span class="hljs-string">|</span><br>文件<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="七、子查询-SUBQUERY"><a href="#七、子查询-SUBQUERY" class="headerlink" title="七、子查询 SUBQUERY"></a>七、子查询 SUBQUERY</h1><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>子查询：</p>
+<blockquote>
+<p>一个 SQL 语句中嵌套另一个 SQL。</p>
+</blockquote>
+<p>结构：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span><br><span class="hljs-keyword">FROM</span><br><span class="hljs-keyword">WHERE</span><br>(<br>    <span class="hljs-keyword">SELECT</span><br>)<br></code></pre></td></tr></table></figure>
+
+
+<p>执行顺序：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">子查询<br><br>↓<br><br>外层查询<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-标量子查询"><a href="#1-标量子查询" class="headerlink" title="1.标量子查询"></a>1.标量子查询</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>返回一个值。</p>
+<p>例如：</p>
+<p>查询工资高于平均工资的人。</p>
+<p>子查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">AVG</span>(salary)<br><span class="hljs-keyword">FROM</span> employee;<br></code></pre></td></tr></table></figure>
+
+
+<p>外层：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> employee<br><span class="hljs-keyword">WHERE</span> salary <span class="hljs-operator">&gt;</span><br>(<br><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">AVG</span>(salary)<br><span class="hljs-keyword">FROM</span> employee<br>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>适合：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">平均值<br>最大值<br>最小值<br>统计值<br></code></pre></td></tr></table></figure>
+
+
+<p>例如：</p>
+<p>查询：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">超过平均销售额的商品<br></code></pre></td></tr></table></figure>
+
+<h3 id="列子查询"><a href="#列子查询" class="headerlink" title="列子查询"></a>列子查询</h3><h4 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h4><p>返回一列数据。</p>
+<p>例如：</p>
+<p>查询购买过商品的用户。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> users<br><span class="hljs-keyword">WHERE</span> id <span class="hljs-keyword">IN</span><br>(<br><span class="hljs-keyword">SELECT</span> user_id<br><span class="hljs-keyword">FROM</span> orders<br>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h4><p>多个结果匹配：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">IN</span><br><br><span class="hljs-built_in">ANY</span><br><br><span class="hljs-built_in">ALL</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="行子查询"><a href="#行子查询" class="headerlink" title="行子查询"></a>行子查询</h3><h4 id="1-定义-6"><a href="#1-定义-6" class="headerlink" title="1. 定义"></a>1. 定义</h4><p>返回一行多个字段。</p>
+<p>例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> student<br><span class="hljs-keyword">WHERE</span><br>(name,age)<br><span class="hljs-operator">=</span><br>(<br><span class="hljs-keyword">SELECT</span> name,age<br><span class="hljs-keyword">FROM</span> student<br><span class="hljs-keyword">WHERE</span> id<span class="hljs-operator">=</span><span class="hljs-number">1</span><br>);<br></code></pre></td></tr></table></figure>
+
+
+<p>返回：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">一行多列<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-应用场景-1"><a href="#2-应用场景-1" class="headerlink" title="2. 应用场景"></a>2. 应用场景</h4><p>组合条件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">姓名 + 年龄<br></code></pre></td></tr></table></figure>
+
+<h3 id="表子查询"><a href="#表子查询" class="headerlink" title="表子查询"></a>表子查询</h3><h4 id="1-定义-7"><a href="#1-定义-7" class="headerlink" title="1. 定义"></a>1. 定义</h4><p>子查询结果作为临时表。</p>
+<p>例如：</p>
+<p>统计用户订单数量。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span><br>(<br><span class="hljs-keyword">SELECT</span><br>user_id,<br><span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>) num<br><span class="hljs-keyword">FROM</span> orders<br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> user_id<br>) t;<br></code></pre></td></tr></table></figure>
+
+
+<p>注意：</p>
+<p>临时表必须有别名。</p>
+<h4 id="2-应用场景-2"><a href="#2-应用场景-2" class="headerlink" title="2. 应用场景"></a>2. 应用场景</h4><p>复杂统计：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs">统计<br><br>↓<br><br>排序<br><br>↓<br><br>再次查询<br></code></pre></td></tr></table></figure>
+
+
+<p>例如：</p>
+<p>排行榜。</p>
+<hr>
+<h1 id="十五、JOIN-和子查询区别"><a href="#十五、JOIN-和子查询区别" class="headerlink" title="十五、JOIN 和子查询区别"></a>十五、JOIN 和子查询区别</h1><table>
+<thead>
+<tr>
+<th>比较</th>
+<th>JOIN</th>
+<th>子查询</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>思想</td>
+<td>表连接</td>
+<td>查询嵌套</td>
+</tr>
+<tr>
+<td>方向</td>
+<td>横向组合</td>
+<td>纵向计算</td>
+</tr>
+<tr>
+<td>适合</td>
+<td>展示多个表信息</td>
+<td>条件判断</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>通常更优</td>
+<td>复杂时可能慢</td>
+</tr>
+<tr>
+<td>可读性</td>
+<td>关系清晰</td>
+<td>逻辑分层</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="十六、企业开发使用频率"><a href="#十六、企业开发使用频率" class="headerlink" title="十六、企业开发使用频率"></a>十六、企业开发使用频率</h1><h2 id="高频"><a href="#高频" class="headerlink" title="高频"></a>高频</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span><br><br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span><br><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-operator">+</span> <span class="hljs-keyword">JOIN</span><br><br><span class="hljs-keyword">EXISTS</span><br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h2 id="中频"><a href="#中频" class="headerlink" title="中频"></a>中频</h2><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-built_in">SELF</span> <span class="hljs-keyword">JOIN</span><br><br>表子查询<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h2 id="低频"><a href="#低频" class="headerlink" title="低频"></a>低频</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span><br><br><span class="hljs-keyword">FULL</span> <span class="hljs-keyword">JOIN</span><br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="十七、练习题"><a href="#十七、练习题" class="headerlink" title="十七、练习题"></a>十七、练习题</h1><h2 id="练习1：INNER-JOIN"><a href="#练习1：INNER-JOIN" class="headerlink" title="练习1：INNER JOIN"></a>练习1：INNER JOIN</h2><p>表：</p>
+<p>users</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-built_in">id</span><br><span class="hljs-built_in">name</span><br></code></pre></td></tr></table></figure>
+
+
+<p>orders</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-built_in">id</span><br>user_id<br>money<br></code></pre></td></tr></table></figure>
+
+
+<p>要求：</p>
+<p>查询：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">用户名<br>订单金额<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h2 id="练习2：LEFT-JOIN"><a href="#练习2：LEFT-JOIN" class="headerlink" title="练习2：LEFT JOIN"></a>练习2：LEFT JOIN</h2><p>查询：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">所有用户<br><span class="hljs-bullet">+</span><br>订单数量<br></code></pre></td></tr></table></figure>
+
+
+<p>要求：</p>
+<p>没有订单用户也显示。</p>
+<p>提示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span><br><br><span class="hljs-built_in">COUNT</span>()<br><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span><br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h2 id="练习3：SELF-JOIN"><a href="#练习3：SELF-JOIN" class="headerlink" title="练习3：SELF JOIN"></a>练习3：SELF JOIN</h2><p>员工表：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-built_in">id</span><br><span class="hljs-built_in">name</span><br>manager_id<br></code></pre></td></tr></table></figure>
+
+
+<p>查询：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">员工姓名<br>领导姓名<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h2 id="练习4：标量子查询"><a href="#练习4：标量子查询" class="headerlink" title="练习4：标量子查询"></a>练习4：标量子查询</h2><p>查询：</p>
+<p>工资高于平均工资的员工。</p>
+<hr>
+<h2 id="练习5：列子查询"><a href="#练习5：列子查询" class="headerlink" title="练习5：列子查询"></a>练习5：列子查询</h2><p>查询：</p>
+<p>购买过商品的用户。</p>
+<hr>
+<h2 id="练习6：表子查询"><a href="#练习6：表子查询" class="headerlink" title="练习6：表子查询"></a>练习6：表子查询</h2><p>查询：</p>
+<p>消费金额最高的前三个用户。</p>
+<p>提示：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">GROUP</span> <span class="hljs-title">BY</span><br><br><span class="hljs-keyword">ORDER</span> <span class="hljs-title">BY</span><br><br>LIMIT<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="十八、学习路线"><a href="#十八、学习路线" class="headerlink" title="十八、学习路线"></a>十八、学习路线</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs sql">单表查询<br><br>↓<br><br><span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span><br><br>↓<br><br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span><br><br>↓<br><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-operator">+</span> <span class="hljs-keyword">JOIN</span><br><br>↓<br><br>SELF <span class="hljs-keyword">JOIN</span><br><br>↓<br><br>标量子查询<br><br>↓<br><br>列子查询<br><br>↓<br><br>表子查询<br><br>↓<br><br>复杂业务<span class="hljs-keyword">SQL</span><br></code></pre></td></tr></table></figure>
+
+
+<p>掌握以上内容：</p>
+<p>可以完成企业中大部分 CRUD 系统的数据查询任务。<br>&#96;&#96;&#96;</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/sql/" class="category-chain-item">sql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SQL 多表查询学习笔记</div>
+      <div>http://example.com/2026/08/05/SQL 多表查询学习笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年8月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/07/29/SQL%20%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89/" title="SQL 内置函数（Function）">
+                        <span class="hidden-mobile">SQL 内置函数（Function）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
