@@ -1,0 +1,1294 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Tkinter 项目开发速查 Tkinter 是 Python 自带的 GUI 库。核心思想：窗口 + 控件 + 布局 + 事件 + 回调函数   0. 适用范围适合Tkinter 适合快速开发 Python 桌面 GUI，尤其适合：  学生、员工、库存等小型信息管理系统 数据录入和查询工具 Excel &#x2F; PDF &#x2F; 图片等文件处理工具 Python 自动化脚本的图形界面 数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tkinter 项目开发速查">
+<meta property="og:url" content="http://example.com/2026/08/30/Tkinter%20%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E9%80%9F%E6%9F%A5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Tkinter 项目开发速查 Tkinter 是 Python 自带的 GUI 库。核心思想：窗口 + 控件 + 布局 + 事件 + 回调函数   0. 适用范围适合Tkinter 适合快速开发 Python 桌面 GUI，尤其适合：  学生、员工、库存等小型信息管理系统 数据录入和查询工具 Excel &#x2F; PDF &#x2F; 图片等文件处理工具 Python 自动化脚本的图形界面 数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-29T17:46:21.000Z">
+<meta property="article:modified_time" content="2026-08-29T17:46:21.642Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Tkinter 项目开发速查 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Tkinter 项目开发速查"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-08-30 01:46" pubdate>
+          2026年8月30日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Tkinter 项目开发速查</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Tkinter-项目开发速查"><a href="#Tkinter-项目开发速查" class="headerlink" title="Tkinter 项目开发速查"></a>Tkinter 项目开发速查</h1><blockquote>
+<p>Tkinter 是 Python 自带的 GUI 库。<br>核心思想：<strong>窗口 + 控件 + 布局 + 事件 + 回调函数</strong></p>
+</blockquote>
+<hr>
+<h1 id="0-适用范围"><a href="#0-适用范围" class="headerlink" title="0. 适用范围"></a>0. 适用范围</h1><h2 id="适合"><a href="#适合" class="headerlink" title="适合"></a>适合</h2><p>Tkinter 适合快速开发 Python 桌面 GUI，尤其适合：</p>
+<ul>
+<li>学生、员工、库存等小型信息管理系统</li>
+<li>数据录入和查询工具</li>
+<li>Excel &#x2F; PDF &#x2F; 图片等文件处理工具</li>
+<li>Python 自动化脚本的图形界面</li>
+<li>数据清洗、转换、导出工具</li>
+<li>本地数据库管理工具</li>
+<li>内部办公小工具</li>
+<li>课程设计和项目原型</li>
+</ul>
+<p>典型场景：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Python 脚本<br>    ↓<br>Tkinter GUI<br>    ↓<br>普通用户通过按钮、表格、输入框操作<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">文件转换脚本<br>    ↓<br>Tkinter<br>    ├── 选择文件<br>    ├── 选择输出位置<br>    ├── 开始转换<br>    └── 显示结果<br></code></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">学生管理系统<br><br>Tkinter<br>   ↓<br>业务逻辑<br>   ↓<br>MySQL / SQLite<br></code></pre></td></tr></table></figure>
+
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li>Python 标准库自带</li>
+<li>学习成本较低</li>
+<li>和 Python 脚本结合方便</li>
+<li>CRUD 开发速度快</li>
+<li>适合快速制作可运行桌面程序</li>
+<li>可以使用 PyInstaller 打包成 Windows 程序</li>
+</ul>
+<h2 id="不太适合"><a href="#不太适合" class="headerlink" title="不太适合"></a>不太适合</h2><p>Tkinter 不适合：</p>
+<ul>
+<li>大型商业桌面软件</li>
+<li>高度现代化 UI</li>
+<li>大量动画和复杂视觉效果</li>
+<li>手机 APP</li>
+<li>浏览器 Web 系统</li>
+<li>大型多人协作系统</li>
+<li>对界面设计要求很高的软件</li>
+</ul>
+<p>如果重点是复杂桌面 GUI：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">PySide / PyQt<br></code></pre></td></tr></table></figure>
+
+<p>如果重点是 Web、多人访问、前后端分离：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Vue / React<br>     ↓<br>FastAPI / Django<br>     ↓<br>数据库<br></code></pre></td></tr></table></figure>
+
+<p>因此 Tkinter 的定位可以概括为：</p>
+<blockquote>
+<p><strong>简单、快速、Python 原生的桌面 GUI 工具。</strong></p>
+</blockquote>
+<p>对于普通 CRUD 和内部工具：</p>
+<blockquote>
+<p><strong>重功能，轻视觉。</strong></p>
+</blockquote>
+<hr>
+<h1 id="1-基本结构"><a href="#1-基本结构" class="headerlink" title="1. 基本结构"></a>1. 基本结构</h1><p>Tkinter 程序基本流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">创建 Tk()<br>   ↓<br>创建控件<br>   ↓<br>安排布局<br>   ↓<br>绑定事件<br>   ↓<br>mainloop()<br>   ↓<br>等待用户操作<br></code></pre></td></tr></table></figure>
+
+<p><code>Tk()</code>：</p>
+<blockquote>
+<p>创建 GUI 的根窗口。</p>
+</blockquote>
+<p>一个普通 Tkinter 程序通常只有一个根窗口。</p>
+<p><code>mainloop()</code>：</p>
+<blockquote>
+<p>启动 GUI 的事件循环。</p>
+</blockquote>
+<p>可以理解为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs text">程序启动<br>  ↓<br>创建窗口<br>  ↓<br>mainloop()<br>  ↓<br>┌─────────────────┐<br>│ 等待用户操作     │<br>│                 │<br>│ 点击按钮？──────→ 调函数<br>│ 输入文字？──────→ 处理事件<br>│ 关闭窗口？──────→ 退出<br>│                 │<br>└────────┬────────┘<br>         ↑<br>         └──── 一直循环<br></code></pre></td></tr></table></figure>
+
+<p>它和 CLI 中不断通过循环等待用户输入的思想类似，只是 GUI 的事件循环由 Tkinter 管理。</p>
+<hr>
+<h1 id="2-Tk-主窗口"><a href="#2-Tk-主窗口" class="headerlink" title="2. Tk 主窗口"></a>2. Tk 主窗口</h1><p>主窗口负责承载整个 GUI。</p>
+<p>常见配置包括：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">title       窗口标题<br><br>geometry    窗口尺寸与位置<br><br>resizable   是否允许调整窗口大小<br></code></pre></td></tr></table></figure>
+
+<p>窗口尺寸通常表示为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">宽 × 高<br></code></pre></td></tr></table></figure>
+
+<p>也可以进一步指定：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">宽<br>高<br>X 坐标<br>Y 坐标<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="3-Label-文本"><a href="#3-Label-文本" class="headerlink" title="3. Label 文本"></a>3. Label 文本</h1><p>作用：</p>
+<blockquote>
+<p>在界面上显示文字。</p>
+</blockquote>
+<p>常见用途：</p>
+<ul>
+<li>页面标题</li>
+<li>字段名称</li>
+<li>提示信息</li>
+<li>状态信息</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">姓名：[________]<br><br>年龄：[________]<br><br>成绩：[________]<br></code></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">姓名<br>年龄<br>成绩<br></code></pre></td></tr></table></figure>
+
+<p>通常就是 Label。</p>
+<hr>
+<h1 id="4-Entry-输入框"><a href="#4-Entry-输入框" class="headerlink" title="4. Entry 输入框"></a>4. Entry 输入框</h1><p>作用：</p>
+<blockquote>
+<p>接收用户的单行文本输入。</p>
+</blockquote>
+<p>常见用途：</p>
+<ul>
+<li>用户名</li>
+<li>密码</li>
+<li>学号</li>
+<li>姓名</li>
+<li>年龄</li>
+<li>查询关键词</li>
+</ul>
+<p>Entry 的常见操作：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">读取内容<br>清空内容<br>插入内容<br>设置密码隐藏<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">用户名：[____________]<br><br>密码：  [************]<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="5-Button-按钮"><a href="#5-Button-按钮" class="headerlink" title="5. Button 按钮"></a>5. Button 按钮</h1><p>作用：</p>
+<blockquote>
+<p>用户主动触发一个操作。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">[登录]<br><br>[添加]<br><br>[修改]<br><br>[删除]<br><br>[查询]<br><br>[刷新]<br></code></pre></td></tr></table></figure>
+
+<p>Button 最重要的概念是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">command<br></code></pre></td></tr></table></figure>
+
+<p>即：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">用户点击按钮<br>      ↓<br>触发指定函数<br></code></pre></td></tr></table></figure>
+
+<p>因此：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Button<br>   ↓<br>Callback<br>   ↓<br>业务逻辑<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="6-Frame-容器"><a href="#6-Frame-容器" class="headerlink" title="6. Frame 容器"></a>6. Frame 容器</h1><p>Frame 用于：</p>
+<blockquote>
+<p>对界面进行区域划分。</p>
+</blockquote>
+<p>例如学生管理系统：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs text">root<br>│<br>├── search_frame<br>│   ├── Label<br>│   ├── Entry<br>│   └── Button<br>│<br>├── table_frame<br>│   └── Treeview<br>│<br>└── button_frame<br>    ├── 添加<br>    ├── 修改<br>    └── 删除<br></code></pre></td></tr></table></figure>
+
+<p>Frame 本身通常不承担业务功能。</p>
+<p>它主要解决：</p>
+<blockquote>
+<p>GUI 结构管理。</p>
+</blockquote>
+<p>复杂页面应该优先通过 Frame 分区，而不是把所有控件直接塞进根窗口。</p>
+<hr>
+<h1 id="7-三种布局"><a href="#7-三种布局" class="headerlink" title="7. 三种布局"></a>7. 三种布局</h1><p>Tkinter 主要有：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">pack<br>grid<br>place<br></code></pre></td></tr></table></figure>
+
+<h2 id="7-1-pack"><a href="#7-1-pack" class="headerlink" title="7.1 pack"></a>7.1 pack</h2><p>按照方向自动排列控件。</p>
+<p>适合：</p>
+<ul>
+<li>简单窗口</li>
+<li>Frame 大区域排列</li>
+<li>横向或纵向排列按钮</li>
+</ul>
+<p>特点：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">简单<br>快速<br>适合宏观布局<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="7-2-grid"><a href="#7-2-grid" class="headerlink" title="7.2 grid"></a>7.2 grid</h2><p>按照：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">行 × 列<br></code></pre></td></tr></table></figure>
+
+<p>排列控件。</p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">row 0    用户名   [________]<br><br>row 1    密码     [________]<br><br>row 2             [登录]<br></code></pre></td></tr></table></figure>
+
+<p>适合：</p>
+<ul>
+<li>登录页面</li>
+<li>数据录入页面</li>
+<li>表单</li>
+<li>CRUD 编辑窗口</li>
+</ul>
+<p>常见概念：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">row       行<br><br>column    列<br><br>padx      左右间距<br><br>pady      上下间距<br><br>sticky    对齐方向<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="7-3-place"><a href="#7-3-place" class="headerlink" title="7.3 place"></a>7.3 place</h2><p>按照具体坐标定位。</p>
+<p>特点：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">x<br>y<br></code></pre></td></tr></table></figure>
+
+<p>优点：</p>
+<blockquote>
+<p>直观。</p>
+</blockquote>
+<p>缺点：</p>
+<ul>
+<li>窗口变化后容易错位</li>
+<li>修改麻烦</li>
+<li>大型页面难维护</li>
+</ul>
+<p>普通 CRUD 项目不建议大量使用。</p>
+<hr>
+<h1 id="8-布局管理原则"><a href="#8-布局管理原则" class="headerlink" title="8. 布局管理原则"></a>8. 布局管理原则</h1><p>同一个容器中通常不要混用：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">pack<br>+<br>grid<br></code></pre></td></tr></table></figure>
+
+<p>但是不同 Frame 可以分别使用。</p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">root<br>│<br>├── search_frame<br>│      ↓<br>│     grid<br>│<br>└── button_frame<br>       ↓<br>      pack<br></code></pre></td></tr></table></figure>
+
+<p>这种方式没有问题。</p>
+<p>因此推荐：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Frame 管区域<br>+<br>grid 管表单<br>+<br>pack 管简单排列<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="9-messagebox-消息框"><a href="#9-messagebox-消息框" class="headerlink" title="9. messagebox 消息框"></a>9. messagebox 消息框</h1><p>作用：</p>
+<blockquote>
+<p>向用户反馈程序执行结果。</p>
+</blockquote>
+<p>主要类型：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">信息<br><br>警告<br><br>错误<br><br>确认<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">添加成功<br><br>请输入姓名<br><br>数据库连接失败<br><br>确定删除该学生吗？<br></code></pre></td></tr></table></figure>
+
+<p>典型流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">用户操作<br> ↓<br>程序执行<br> ↓<br>成功 / 失败<br> ↓<br>messagebox<br> ↓<br>用户得到反馈<br></code></pre></td></tr></table></figure>
+
+<p>CRUD 项目非常常用。</p>
+<hr>
+<h1 id="10-Toplevel-子窗口"><a href="#10-Toplevel-子窗口" class="headerlink" title="10. Toplevel 子窗口"></a>10. Toplevel 子窗口</h1><p>Tkinter 应用通常只有一个主窗口。</p>
+<p>其他临时窗口应该作为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">Toplevel<br></code></pre></td></tr></table></figure>
+
+<p>存在。</p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">主窗口<br>│<br>├── 添加学生窗口<br>├── 修改学生窗口<br>├── 用户信息窗口<br>└── 设置窗口<br></code></pre></td></tr></table></figure>
+
+<p>典型结构：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">Tk<br>│<br>└── 主窗口<br>     │<br>     ├── Toplevel<br>     │     添加学生<br>     │<br>     └── Toplevel<br>           修改学生<br></code></pre></td></tr></table></figure>
+
+<p>不要为每一个页面都创建一个独立的根窗口。</p>
+<hr>
+<h1 id="11-ttk"><a href="#11-ttk" class="headerlink" title="11. ttk"></a>11. ttk</h1><p><code>ttk</code> 是 Tkinter 提供的一套主题控件。</p>
+<p>作用：</p>
+<ul>
+<li>提供更统一的外观</li>
+<li>提供一些常用高级控件</li>
+</ul>
+<p>其中最重要的包括：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Treeview<br><br>Combobox<br><br>Scrollbar<br></code></pre></td></tr></table></figure>
+
+<p>普通管理系统通常会同时使用：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">tkinter<br>+<br>ttk<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="12-Treeview-表格-★"><a href="#12-Treeview-表格-★" class="headerlink" title="12. Treeview 表格 ★"></a>12. Treeview 表格 ★</h1><p>Treeview 是 CRUD 管理系统最重要的控件之一。</p>
+<p>作用：</p>
+<blockquote>
+<p>以表格形式展示结构化数据。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">学号    姓名    性别    年龄    成绩<br>------------------------------------<br>10001   张三    男      20      90<br>10002   李四    女      19      88<br></code></pre></td></tr></table></figure>
+
+<p>主要涉及：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs text">定义列<br><br>定义表头<br><br>设置列宽<br><br>插入数据<br><br>删除数据<br><br>获取选中记录<br><br>刷新数据<br></code></pre></td></tr></table></figure>
+
+<p>通常：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">数据库 SELECT<br>       ↓<br>Python 数据<br>       ↓<br>Treeview<br>       ↓<br>显示给用户<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="13-Treeview-插入数据"><a href="#13-Treeview-插入数据" class="headerlink" title="13. Treeview 插入数据"></a>13. Treeview 插入数据</h1><p>数据库查询结果通常是一组记录：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">学生 1<br>学生 2<br>学生 3<br>学生 4<br>...<br></code></pre></td></tr></table></figure>
+
+<p>程序遍历这些记录：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">数据库查询结果<br>      ↓<br>for<br>      ↓<br>逐条插入<br>      ↓<br>Treeview<br></code></pre></td></tr></table></figure>
+
+<p>最终形成表格。</p>
+<hr>
+<h1 id="14-Treeview-清空与刷新"><a href="#14-Treeview-清空与刷新" class="headerlink" title="14. Treeview 清空与刷新"></a>14. Treeview 清空与刷新</h1><p>数据库发生变化以后，Treeview 不会自动更新。</p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">数据库：<br><br>001 张三<br>002 李四<br>003 王五<br></code></pre></td></tr></table></figure>
+
+<p>但是 GUI 可能仍然显示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">001 张三<br>002 李四<br></code></pre></td></tr></table></figure>
+
+<p>因此需要：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">refresh<br></code></pre></td></tr></table></figure>
+
+<p>典型过程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">清空 Treeview<br>      ↓<br>重新 SELECT<br>      ↓<br>获得最新数据<br>      ↓<br>重新插入 Treeview<br></code></pre></td></tr></table></figure>
+
+<p>因此：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">INSERT<br>UPDATE<br>DELETE<br>   ↓<br>refresh()<br></code></pre></td></tr></table></figure>
+
+<p>是 CRUD GUI 中非常常见的模式。</p>
+<hr>
+<h1 id="15-Treeview-获取选中记录-★"><a href="#15-Treeview-获取选中记录-★" class="headerlink" title="15. Treeview 获取选中记录 ★"></a>15. Treeview 获取选中记录 ★</h1><p>修改和删除通常要求用户：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">先选择一行<br></code></pre></td></tr></table></figure>
+
+<p>然后：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">Treeview<br> ↓<br>获取当前选中行<br> ↓<br>获得该行数据<br> ↓<br>取得 student_id<br> ↓<br>执行操作<br></code></pre></td></tr></table></figure>
+
+<p>例如删除：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">选择学生<br>   ↓<br>获得 student_id<br>   ↓<br>确认删除<br>   ↓<br>DELETE<br>   ↓<br>refresh<br></code></pre></td></tr></table></figure>
+
+<p>主键 ID 是连接：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">GUI 中的一行<br></code></pre></td></tr></table></figure>
+
+<p>和：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">数据库中的一条记录<br></code></pre></td></tr></table></figure>
+
+<p>的重要依据。</p>
+<hr>
+<h1 id="16-Combobox-下拉框"><a href="#16-Combobox-下拉框" class="headerlink" title="16. Combobox 下拉框"></a>16. Combobox 下拉框</h1><p>作用：</p>
+<blockquote>
+<p>从有限选项中选择一个值。</p>
+</blockquote>
+<p>适合：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">性别<br><br>班级<br><br>角色<br><br>状态<br><br>部门<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">性别：<br><br>[男 ▼]<br></code></pre></td></tr></table></figure>
+
+<p>相比让用户自由输入：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">Entry<br></code></pre></td></tr></table></figure>
+
+<p>Combobox 可以减少非法数据。</p>
+<hr>
+<h1 id="17-Checkbutton-复选框"><a href="#17-Checkbutton-复选框" class="headerlink" title="17. Checkbutton 复选框"></a>17. Checkbutton 复选框</h1><p>作用：</p>
+<blockquote>
+<p>表示布尔状态或者多项选择。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">☑ 记住密码<br><br>☑ 启用账号<br></code></pre></td></tr></table></figure>
+
+<p>对应：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">True / False<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="18-Radiobutton-单选"><a href="#18-Radiobutton-单选" class="headerlink" title="18. Radiobutton 单选"></a>18. Radiobutton 单选</h1><p>作用：</p>
+<blockquote>
+<p>多个选项只能选择一个。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">性别：<br><br>○ 男<br><br>○ 女<br></code></pre></td></tr></table></figure>
+
+<p>与 Checkbutton 的区别：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Checkbutton<br>可以多个同时选择<br><br>Radiobutton<br>同组通常只能选择一个<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="19-Tkinter-变量"><a href="#19-Tkinter-变量" class="headerlink" title="19. Tkinter 变量"></a>19. Tkinter 变量</h1><p>Tkinter 提供专门用于绑定 GUI 数据的变量类型：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">StringVar<br><br>IntVar<br><br>DoubleVar<br><br>BooleanVar<br></code></pre></td></tr></table></figure>
+
+<p>作用：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Python 变量<br>    ↕<br>GUI 控件<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Entry<br> ↕<br>StringVar<br></code></pre></td></tr></table></figure>
+
+<p>修改变量时，可以同步影响控件内容。</p>
+<p>复杂表单中比较方便。</p>
+<hr>
+<h1 id="20-事件-bind"><a href="#20-事件-bind" class="headerlink" title="20. 事件 bind"></a>20. 事件 bind</h1><p>Button 的 command 主要处理：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">按钮点击<br></code></pre></td></tr></table></figure>
+
+<p>而 <code>bind</code> 可以处理更多 GUI 事件。</p>
+<p>常见：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">鼠标左键<br><br>双击<br><br>Enter<br><br>键盘输入<br><br>选择记录<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">双击 Treeview 某一行<br>        ↓<br>打开修改窗口<br></code></pre></td></tr></table></figure>
+
+<p>这是典型事件绑定。</p>
+<hr>
+<h1 id="21-Callback-回调函数"><a href="#21-Callback-回调函数" class="headerlink" title="21. Callback 回调函数"></a>21. Callback 回调函数</h1><p>Callback 可以理解为：</p>
+<blockquote>
+<p>某个 GUI 事件发生以后执行的函数。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">添加按钮<br>   ↓<br>add_student<br><br>删除按钮<br>   ↓<br>delete_student<br><br>查询按钮<br>   ↓<br>search_student<br></code></pre></td></tr></table></figure>
+
+<p>因此 GUI 的基本模型：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">控件<br> ↓<br>事件<br> ↓<br>Callback<br> ↓<br>业务逻辑<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="22-lambda"><a href="#22-lambda" class="headerlink" title="22. lambda"></a>22. lambda</h1><p>当回调函数需要附带参数时，经常会使用：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">lambda<br></code></pre></td></tr></table></figure>
+
+<p>它的作用可以简单理解为：</p>
+<blockquote>
+<p>暂时包装一个函数，等事件发生以后再执行。</p>
+</blockquote>
+<p>重点区分：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">现在执行函数<br></code></pre></td></tr></table></figure>
+
+<p>和：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">点击以后执行函数<br></code></pre></td></tr></table></figure>
+
+<p>这是 GUI 初学阶段比较容易混淆的地方。</p>
+<hr>
+<h1 id="23-控件状态"><a href="#23-控件状态" class="headerlink" title="23. 控件状态"></a>23. 控件状态</h1><p>控件可以：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">启用<br><br>禁用<br></code></pre></td></tr></table></figure>
+
+<p>例如权限控制：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs text">admin<br><br>[添加]<br>[修改]<br>[删除]<br><br><br>student<br><br>[添加]  禁用<br><br>[修改]  禁用<br><br>[删除]  禁用<br></code></pre></td></tr></table></figure>
+
+<p>因此 GUI 可以根据用户角色调整可用功能。</p>
+<hr>
+<h1 id="24-Scrollbar-滚动条"><a href="#24-Scrollbar-滚动条" class="headerlink" title="24. Scrollbar 滚动条"></a>24. Scrollbar 滚动条</h1><p>当 Treeview 数据很多时：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">100 条<br><br>1000 条<br><br>10000 条<br></code></pre></td></tr></table></figure>
+
+<p>不可能全部同时显示。</p>
+<p>因此通常：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Treeview<br>+<br>Scrollbar<br></code></pre></td></tr></table></figure>
+
+<p>组合使用。</p>
+<hr>
+<h1 id="25-CRUD-GUI-的标准调用方式"><a href="#25-CRUD-GUI-的标准调用方式" class="headerlink" title="25. CRUD GUI 的标准调用方式"></a>25. CRUD GUI 的标准调用方式</h1><p>不推荐：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">GUI<br> ↓<br>直接堆 SQL<br> ↓<br>数据库<br></code></pre></td></tr></table></figure>
+
+<p>推荐第一版：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">GUI<br> ↓<br>Service<br> ↓<br>Database<br></code></pre></td></tr></table></figure>
+
+<p>GUI 负责：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">接收输入<br><br>触发操作<br><br>显示数据<br><br>反馈结果<br></code></pre></td></tr></table></figure>
+
+<p>Service 负责：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">业务逻辑<br><br>数据校验<br><br>调用数据库<br></code></pre></td></tr></table></figure>
+
+<p>Database 负责：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">连接数据库<br><br>执行 SQL<br><br>事务处理<br><br>返回数据<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="26-学生管理系统界面结构"><a href="#26-学生管理系统界面结构" class="headerlink" title="26. 学生管理系统界面结构"></a>26. 学生管理系统界面结构</h1><p>推荐：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs text">root<br>│<br>├── search_frame<br>│<br>│   ├── Label<br>│   ├── Entry<br>│   ├── 查询 Button<br>│   └── 刷新 Button<br>│<br>├── table_frame<br>│<br>│   ├── Treeview<br>│   └── Scrollbar<br>│<br>└── operation_frame<br>    │<br>    ├── 添加 Button<br>    ├── 修改 Button<br>    └── 删除 Button<br></code></pre></td></tr></table></figure>
+
+<p>界面：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs text">┌────────────────────────────────────────┐<br>│                                        │<br>│ 学号/姓名 [____________] [查询] [刷新] │<br>│                                        │<br>├────────────────────────────────────────┤<br>│                                        │<br>│ 学号 │ 姓名 │ 性别 │ 年龄 │ 成绩     │<br>│ ───────────────────────────────────── │<br>│ 001  │ 张三 │ 男   │ 20   │ 90       │<br>│ 002  │ 李四 │ 女   │ 19   │ 88       │<br>│                                        │<br>│                                        │<br>├────────────────────────────────────────┤<br>│                                        │<br>│      [添加]    [修改]    [删除]        │<br>│                                        │<br>└────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="27-Tkinter-最需要掌握的内容"><a href="#27-Tkinter-最需要掌握的内容" class="headerlink" title="27. Tkinter 最需要掌握的内容"></a>27. Tkinter 最需要掌握的内容</h1><h2 id="★★★★★-必须掌握"><a href="#★★★★★-必须掌握" class="headerlink" title="★★★★★ 必须掌握"></a>★★★★★ 必须掌握</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs text">Tk<br><br>mainloop<br><br>Frame<br><br>Button<br><br>Entry<br><br>Treeview<br><br>messagebox<br><br>command / Callback<br><br>获取输入<br><br>获取选中记录<br><br>Toplevel<br></code></pre></td></tr></table></figure>
+
+<h2 id="★★★★-常用"><a href="#★★★★-常用" class="headerlink" title="★★★★ 常用"></a>★★★★ 常用</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs text">Label<br><br>grid<br><br>pack<br><br>StringVar<br><br>Combobox<br><br>Scrollbar<br><br>bind<br></code></pre></td></tr></table></figure>
+
+<h2 id="★★-知道即可"><a href="#★★-知道即可" class="headerlink" title="★★ 知道即可"></a>★★ 知道即可</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">Checkbutton<br><br>Radiobutton<br><br>字体<br><br>颜色<br><br>窗口位置<br></code></pre></td></tr></table></figure>
+
+<h2 id="★-当前不用深入"><a href="#★-当前不用深入" class="headerlink" title="★ 当前不用深入"></a>★ 当前不用深入</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">Canvas<br><br>复杂绘图<br><br>复杂动画<br><br>高级主题<br><br>高度自定义控件<br></code></pre></td></tr></table></figure>
+
+<p>对于普通 CRUD 项目，没有必要为了“学完 Tkinter”把所有 API 全部学习一遍。</p>
+<hr>
+<h1 id="28-最重要的三个概念"><a href="#28-最重要的三个概念" class="headerlink" title="28. 最重要的三个概念"></a>28. 最重要的三个概念</h1><h2 id="①-Widget"><a href="#①-Widget" class="headerlink" title="① Widget"></a>① Widget</h2><p>负责：</p>
+<blockquote>
+<p>界面上有什么。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">Label<br><br>Entry<br><br>Button<br><br>Treeview<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="②-Layout"><a href="#②-Layout" class="headerlink" title="② Layout"></a>② Layout</h2><p>负责：</p>
+<blockquote>
+<p>控件放在哪里。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">pack<br><br>grid<br><br>place<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="③-Event-Callback"><a href="#③-Event-Callback" class="headerlink" title="③ Event &#x2F; Callback"></a>③ Event &#x2F; Callback</h2><p>负责：</p>
+<blockquote>
+<p>用户操作以后发生什么。</p>
+</blockquote>
+<p>因此 GUI 可以概括为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">Widget<br>+<br>Layout<br>+<br>Event<br>+<br>Callback<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="29-学生管理项目最终调用链"><a href="#29-学生管理项目最终调用链" class="headerlink" title="29. 学生管理项目最终调用链"></a>29. 学生管理项目最终调用链</h1><p>第一版：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs text">用户<br> ↓<br>Tkinter<br> ↓<br>Button / Treeview Event<br> ↓<br>GUI Callback<br> ↓<br>Service<br> ↓<br>Database<br> ↓<br>MySQL<br> ↓<br>返回结果<br> ↓<br>refresh<br> ↓<br>Treeview<br></code></pre></td></tr></table></figure>
+
+<p>这一条链跑通以后，Tkinter 对普通 CRUD 项目已经基本够用。</p>
+<p>以后第二版可以进一步重构：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">Tkinter<br> ↓<br>HTTP<br> ↓<br>FastAPI<br> ↓<br>Service<br> ↓<br>DAO<br> ↓<br>MySQL<br></code></pre></td></tr></table></figure>
+
+<p>此时 Tkinter 的角色就从：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">桌面单体程序的 GUI<br></code></pre></td></tr></table></figure>
+
+<p>转变成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">客户端<br></code></pre></td></tr></table></figure>
+
+<p>因此当前阶段不需要继续深入 Tkinter，而应该把重点放在：</p>
+<blockquote>
+<p><strong>用 Tkinter 完成一个结构清楚、可以运行、可以维护的 CRUD 桌面应用。</strong></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python%E2%80%94%E2%80%94tkinter/" class="category-chain-item">python——tkinter</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Tkinter 项目开发速查</div>
+      <div>http://example.com/2026/08/30/Tkinter 项目开发速查/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年8月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/08/27/Python%20JSON%20%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/" title="Python JSON 操作手册">
+                        <span class="hidden-mobile">Python JSON 操作手册</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
