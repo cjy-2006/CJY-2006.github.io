@@ -1,0 +1,1170 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="openai Python 库：主要方法、参数与作用适合初学者查阅；核对日期：2026-10-23。这是常用接口导览，不是全部 API 清单。 1. 先看调用结构1234from openai import OpenAIclient &#x3D; OpenAI(api_key&#x3D;&quot;你的密钥&quot;, base_url&#x3D;&quot;服务商地址&quot;)response &#x3D; client.cha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openai_主要方法与函数速查">
+<meta property="og:url" content="http://example.com/2026/10/23/openai_%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0%E9%80%9F%E6%9F%A5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="openai Python 库：主要方法、参数与作用适合初学者查阅；核对日期：2026-10-23。这是常用接口导览，不是全部 API 清单。 1. 先看调用结构1234from openai import OpenAIclient &#x3D; OpenAI(api_key&#x3D;&quot;你的密钥&quot;, base_url&#x3D;&quot;服务商地址&quot;)response &#x3D; client.cha">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-10-23T14:41:39.000Z">
+<meta property="article:modified_time" content="2026-10-23T14:41:39.864Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>openai_主要方法与函数速查 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="openai_主要方法与函数速查"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-10-23 22:41" pubdate>
+          2026年10月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">openai_主要方法与函数速查</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="openai-Python-库：主要方法、参数与作用"><a href="#openai-Python-库：主要方法、参数与作用" class="headerlink" title="openai Python 库：主要方法、参数与作用"></a>openai Python 库：主要方法、参数与作用</h1><p>适合初学者查阅；核对日期：2026-10-23。这是常用接口导览，不是全部 API 清单。</p>
+<h2 id="1-先看调用结构"><a href="#1-先看调用结构" class="headerlink" title="1. 先看调用结构"></a>1. 先看调用结构</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> openai <span class="hljs-keyword">import</span> OpenAI<br><br>client = OpenAI(api_key=<span class="hljs-string">&quot;你的密钥&quot;</span>, base_url=<span class="hljs-string">&quot;服务商地址&quot;</span>)<br>response = client.chat.completions.create(...)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>OpenAI</code>：客户端类；<code>OpenAI(...)</code> 创建一个客户端对象。</li>
+<li><code>client</code>：自己起的变量名，用来保存客户端。</li>
+<li><code>chat.completions</code>：客户端下面的对话接口。</li>
+<li><code>create()</code>：向服务端发请求，创建一条回复。</li>
+<li><code>response</code>：保存返回结果的变量名，并不是库里的函数。</li>
+</ul>
+<p>同样叫 <code>create()</code>，放在不同对象下作用也不同：<code>images.generate()</code> 生成图片，<code>files.create()</code> 上传文件。完整路径比最后一个方法名更重要。</p>
+<h2 id="2-客户端与通用方法"><a href="#2-客户端与通用方法" class="headerlink" title="2. 客户端与通用方法"></a>2. 客户端与通用方法</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>作用</th>
+<th>何时用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>OpenAI(...)</code></td>
+<td>创建同步客户端，调用时等待结果</td>
+<td>入门、普通脚本</td>
+</tr>
+<tr>
+<td><code>AsyncOpenAI(...)</code></td>
+<td>创建异步客户端，配合 <code>await</code></td>
+<td>异步服务、同时处理多个任务</td>
+</tr>
+<tr>
+<td><code>client.with_options(...)</code></td>
+<td>派生带不同请求配置的客户端</td>
+<td>临时修改超时、重试次数</td>
+</tr>
+<tr>
+<td><code>client.close()</code></td>
+<td>关闭连接资源</td>
+<td>程序不再调用时；也可使用 <code>with OpenAI(...) as client:</code> 自动关闭</td>
+</tr>
+</tbody></table>
+<p>构造客户端的常用参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>api_key</code></td>
+<td>服务商密钥；不应直接写进提交到 Git 的代码</td>
+</tr>
+<tr>
+<td><code>base_url</code></td>
+<td>服务商接口根地址；DeepSeek 用 <code>https://api.deepseek.com</code>；OpenAI 官方通常省略</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>请求超时设置，例如 <code>60.0</code> 秒</td>
+</tr>
+<tr>
+<td><code>max_retries</code></td>
+<td>部分暂时性错误的自动重试次数；<code>0</code> 表示关闭自动重试</td>
+</tr>
+</tbody></table>
+<h2 id="3-文本和对话：最常用"><a href="#3-文本和对话：最常用" class="headerlink" title="3. 文本和对话：最常用"></a>3. 文本和对话：最常用</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>client.chat.completions.create(...)</code></td>
+<td>根据消息列表生成回答</td>
+<td>当前 DeepSeek 项目优先掌握</td>
+</tr>
+<tr>
+<td><code>client.responses.create(...)</code></td>
+<td>OpenAI 的统一生成接口，可处理支持的文本、图片及工具任务</td>
+<td>不能假定 DeepSeek 支持</td>
+</tr>
+<tr>
+<td><code>client.responses.parse(...)</code></td>
+<td>按指定的数据结构解析输出</td>
+<td>结构化结果，常配合 Pydantic</td>
+</tr>
+<tr>
+<td><code>client.chat.completions.parse(...)</code></td>
+<td>Chat Completions 的结构化输出辅助方法</td>
+<td>服务端、模型必须支持相关格式</td>
+</tr>
+<tr>
+<td><code>client.responses.stream(...)</code></td>
+<td>用上下文管理器消费 Responses 流式事件</td>
+<td>与普通完整返回的读取方式不同</td>
+</tr>
+</tbody></table>
+<h3 id="chat-completions-create-常见参数"><a href="#chat-completions-create-常见参数" class="headerlink" title="chat.completions.create() 常见参数"></a><code>chat.completions.create()</code> 常见参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>model</code></td>
+<td>选择服务商支持的模型</td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td>输入消息列表，包括历史问答</td>
+</tr>
+<tr>
+<td><code>stream</code></td>
+<td><code>False</code> 等完整结果；<code>True</code> 分段接收</td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td>调整采样随机性；可用范围、是否支持由模型决定</td>
+</tr>
+<tr>
+<td><code>top_p</code></td>
+<td>另一种采样控制参数，初学时通常不必同时调它和 temperature</td>
+</tr>
+<tr>
+<td><code>max_completion_tokens</code></td>
+<td>OpenAI Chat 中限制生成 token 数；兼容服务商可能使用不同参数，例如 <code>max_tokens</code>，应查其文档</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>告诉模型有哪些可调用工具；模型返回调用请求，实际函数由你的程序执行</td>
+</tr>
+<tr>
+<td><code>tool_choice</code></td>
+<td>控制是否、如何选择工具</td>
+</tr>
+<tr>
+<td><code>response_format</code></td>
+<td>请求 JSON 等输出格式；需模型和服务端支持</td>
+</tr>
+<tr>
+<td><code>extra_body</code></td>
+<td>传递 SDK 未直接列出的服务商扩展字段，不是任意参数都有效</td>
+</tr>
+</tbody></table>
+<h3 id="当前项目最小示例"><a href="#当前项目最小示例" class="headerlink" title="当前项目最小示例"></a>当前项目最小示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path<br><span class="hljs-keyword">from</span> openai <span class="hljs-keyword">import</span> OpenAI<br><br>key = (Path(__file__).resolve().parent / <span class="hljs-string">&quot;deepseek_key.txt&quot;</span>).read_text(<br>    encoding=<span class="hljs-string">&quot;utf-8-sig&quot;</span><br>).strip()<br><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> key:<br>    <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;密钥文件为空&quot;</span>)<br><br><span class="hljs-keyword">with</span> OpenAI(api_key=key, base_url=<span class="hljs-string">&quot;https://api.deepseek.com&quot;</span>) <span class="hljs-keyword">as</span> client:<br>    response = client.chat.completions.create(<br>        model=<span class="hljs-string">&quot;deepseek-flash&quot;</span>,<br>        messages=[<br>            &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;用简短中文回答。&quot;</span>&#125;,<br>            &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;什么是机器人？&quot;</span>&#125;,<br>        ],<br>        stream=<span class="hljs-literal">False</span>,<br>    )<br>    <span class="hljs-built_in">print</span>(response.choices[<span class="hljs-number">0</span>].message.content)<br></code></pre></td></tr></table></figure>
+
+<p><code>deepseek_key.txt</code> 与脚本放一起，只存密钥；将它加入 <code>.gitignore</code>。模型名称采用核对当天 DeepSeek 官方示例。</p>
+<h3 id="返回值的常用属性和方法"><a href="#返回值的常用属性和方法" class="headerlink" title="返回值的常用属性和方法"></a>返回值的常用属性和方法</h3><table>
+<thead>
+<tr>
+<th>写法</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>response.choices[0].message.content</code></td>
+<td>Chat Completions 第一条回答的文本</td>
+</tr>
+<tr>
+<td><code>response.choices[0].message.tool_calls</code></td>
+<td>模型提出的工具调用请求，可能为空</td>
+</tr>
+<tr>
+<td><code>response.choices[0].finish_reason</code></td>
+<td>回答为什么结束，例如正常结束或达到长度限制</td>
+</tr>
+<tr>
+<td><code>response.usage</code></td>
+<td>token 用量信息，某些情况下可能为空</td>
+</tr>
+<tr>
+<td><code>response.output_text</code></td>
+<td>Responses 接口汇总的文本；不是 Chat Completions 的通用属性</td>
+</tr>
+<tr>
+<td><code>response.model_dump()</code></td>
+<td>将返回对象转成 Python 字典</td>
+</tr>
+<tr>
+<td><code>response.model_dump_json()</code></td>
+<td>将返回对象转成 JSON 字符串</td>
+</tr>
+</tbody></table>
+<p><code>content</code>、<code>usage</code> 是属性，不加括号；<code>model_dump()</code> 是方法，要加括号。</p>
+<h3 id="流式输出"><a href="#流式输出" class="headerlink" title="流式输出"></a>流式输出</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 在 client 仍然打开时执行</span><br>stream = client.chat.completions.create(<br>    model=<span class="hljs-string">&quot;deepseek-flash&quot;</span>,<br>    messages=[&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;讲一个简短故事&quot;</span>&#125;],<br>    stream=<span class="hljs-literal">True</span>,<br>)<br><span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> stream:<br>    <span class="hljs-keyword">if</span> chunk.choices:<br>        <span class="hljs-built_in">print</span>(chunk.choices[<span class="hljs-number">0</span>].delta.content <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;&quot;</span>, end=<span class="hljs-string">&quot;&quot;</span>, flush=<span class="hljs-literal">True</span>)<br><span class="hljs-built_in">print</span>()<br></code></pre></td></tr></table></figure>
+
+<p>流式读取 <code>delta.content</code>，不是完整回复的 <code>message.content</code>。对话记忆需要自己维护 <code>messages</code>，客户端不会自动记住每次调用。</p>
+<h2 id="4-图片、语音、向量等主要方法"><a href="#4-图片、语音、向量等主要方法" class="headerlink" title="4. 图片、语音、向量等主要方法"></a>4. 图片、语音、向量等主要方法</h2><p>以下是 OpenAI SDK 的接口目录。<strong>安装了库，不等于 DeepSeek 提供这些服务。</strong> 使用前需要对应服务商的接口、模型和权限。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>client.images.generate(...)</code></td>
+<td>按文字描述生成图片</td>
+<td>插图、海报</td>
+</tr>
+<tr>
+<td><code>client.images.edit(...)</code></td>
+<td>结合输入图片和描述进行编辑</td>
+<td>改背景、修改画面</td>
+</tr>
+<tr>
+<td><code>client.audio.transcriptions.create(...)</code></td>
+<td>将音频转成文字</td>
+<td>机器人听取用户讲话</td>
+</tr>
+<tr>
+<td><code>client.audio.translations.create(...)</code></td>
+<td>将支持的音频翻译成英文文字</td>
+<td>不是任意目标语言翻译接口</td>
+</tr>
+<tr>
+<td><code>client.audio.speech.create(...)</code></td>
+<td>将文字转成语音</td>
+<td>机器人播报回答</td>
+</tr>
+<tr>
+<td><code>client.embeddings.create(...)</code></td>
+<td>把文本变成数值向量</td>
+<td>语义检索、相似度匹配；不会直接生成聊天回答</td>
+</tr>
+<tr>
+<td><code>client.moderations.create(...)</code></td>
+<td>检测内容所属的风险类别</td>
+<td>内容审核；结果仍需业务逻辑处理</td>
+</tr>
+<tr>
+<td><code>client.models.list()</code></td>
+<td>查询当前服务端返回的模型列表</td>
+<td>查看可用模型</td>
+</tr>
+<tr>
+<td><code>client.models.retrieve(model_id)</code></td>
+<td>查询指定模型信息</td>
+<td>查看模型元信息，不代表能查到所有能力和价格</td>
+</tr>
+</tbody></table>
+<p>看图通常是向支持视觉的对话或 Responses 模型传入图片内容，不是调用 <code>images.generate()</code>。普通字符串 <code>&quot;C:\\照片.jpg&quot;</code> 不会自动上传图片。</p>
+<h2 id="5-文件和批处理：需要时再学"><a href="#5-文件和批处理：需要时再学" class="headerlink" title="5. 文件和批处理：需要时再学"></a>5. 文件和批处理：需要时再学</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>client.files.create(...)</code></td>
+<td>上传文件，需指定用途；并不自动让模型读取或记住它</td>
+</tr>
+<tr>
+<td><code>client.files.list()</code></td>
+<td>列出文件</td>
+</tr>
+<tr>
+<td><code>client.files.retrieve(file_id)</code></td>
+<td>查询文件信息</td>
+</tr>
+<tr>
+<td><code>client.files.content(file_id)</code></td>
+<td>获取文件内容</td>
+</tr>
+<tr>
+<td><code>client.files.delete(file_id)</code></td>
+<td>删除文件</td>
+</tr>
+<tr>
+<td><code>client.batches.create(...)</code></td>
+<td>提交受支持接口的批量任务，异步处理</td>
+</tr>
+<tr>
+<td><code>client.batches.retrieve(batch_id)</code></td>
+<td>查询批处理状态</td>
+</tr>
+<tr>
+<td><code>client.batches.cancel(batch_id)</code></td>
+<td>请求取消批处理</td>
+</tr>
+<tr>
+<td><code>client.fine_tuning.jobs.create(...)</code></td>
+<td>为支持微调的模型创建训练任务，入门阶段可跳过</td>
+</tr>
+</tbody></table>
+<p>常见命名规律：<code>create</code> 创建，<code>list</code> 列表查询，<code>retrieve</code> 查询一个，<code>delete</code> 删除，<code>cancel</code> 取消。不是每个资源都有全部这些方法。</p>
+<h2 id="6-错误处理用到的类"><a href="#6-错误处理用到的类" class="headerlink" title="6. 错误处理用到的类"></a>6. 错误处理用到的类</h2><p>这些是异常类，不是发送请求的方法。</p>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>常见含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>openai.AuthenticationError</code></td>
+<td>身份验证失败，通常是密钥问题</td>
+</tr>
+<tr>
+<td><code>openai.BadRequestError</code></td>
+<td>参数或请求格式不正确</td>
+</tr>
+<tr>
+<td><code>openai.RateLimitError</code></td>
+<td>触发限流，具体原因看服务端返回信息</td>
+</tr>
+<tr>
+<td><code>openai.APIConnectionError</code></td>
+<td>网络连接失败</td>
+</tr>
+<tr>
+<td><code>openai.APITimeoutError</code></td>
+<td>请求超时</td>
+</tr>
+<tr>
+<td><code>openai.APIStatusError</code></td>
+<td>服务端返回失败状态；可读取 <code>status_code</code></td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> openai<br><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-comment"># 在这里执行 client.chat.completions.create(...) 等请求</span><br>    <span class="hljs-keyword">pass</span><br><span class="hljs-keyword">except</span> openai.APIConnectionError:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;连接失败，请检查网络或代理&quot;</span>)<br><span class="hljs-keyword">except</span> openai.APIStatusError <span class="hljs-keyword">as</span> e:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;请求失败，状态码：&quot;</span>, e.status_code)<br></code></pre></td></tr></table></figure>
+
+<h2 id="7-哪些东西不属于-openai-库？"><a href="#7-哪些东西不属于-openai-库？" class="headerlink" title="7. 哪些东西不属于 openai 库？"></a>7. 哪些东西不属于 openai 库？</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>来自哪里、做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>load_dotenv()</code></td>
+<td><code>python-dotenv</code> 包：把 <code>.env</code> 配置加载到环境变量，不负责加密</td>
+</tr>
+<tr>
+<td><code>os.getenv()</code></td>
+<td>Python 标准库：读取环境变量</td>
+</tr>
+<tr>
+<td><code>Path.read_text()</code></td>
+<td>Python 标准库 pathlib：读取文本文件</td>
+</tr>
+<tr>
+<td><code>print()</code></td>
+<td>Python 内置函数：打印内容</td>
+</tr>
+<tr>
+<td><code>json.loads()</code></td>
+<td>Python 标准库：将 JSON 字符串解析成 Python 数据</td>
+</tr>
+</tbody></table>
+<p>对你现在的机器人项目，先掌握：<code>OpenAI()</code> → <code>chat.completions.create()</code> → <code>message.content</code>，再学 <code>stream=True</code>。语音识别和语音合成可由其他服务商提供，不必和对话模型来自同一家。</p>
+<h2 id="官方参考"><a href="#官方参考" class="headerlink" title="官方参考"></a>官方参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/libraries">OpenAI SDK 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create">OpenAI API 参考目录与 Chat Completions</a></li>
+<li><a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/">DeepSeek 首次调用与当前模型</a></li>
+<li><a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/api_samples/chat_python/">DeepSeek Python 示例</a></li>
+</ul>
+<p>接口会随 SDK 版本和服务商更新。本文示例用于说明方法，未使用真实密钥执行付费请求。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>openai_主要方法与函数速查</div>
+      <div>http://example.com/2026/10/23/openai_主要方法与函数速查/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年10月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/10/23/Cyber%20Backup%20%EF%BC%88English%EF%BC%89/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/10/23/python%E8%AF%AD%E6%B3%95/" title="python语法">
+                        <span class="hidden-mobile">python语法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
