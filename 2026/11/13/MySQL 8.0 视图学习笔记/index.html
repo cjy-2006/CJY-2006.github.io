@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MySQL 8.0 视图学习笔记用 EduCloud 的七个视图练习。建议按「先会查 → 再会写 → 然后会验算和排错」的顺序读。 1. 视图到底是什么普通视图把一条查询保存成一个有名字的数据库对象。你可以在 FROM 里用它，像查表一样查结果。底表数据变化后，下一次查询会按当时可见的数据计算。MySQL 8.0 的普通视图没有独立保存一份可定期刷新的查询结果。    对象 适用场景    表 长">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 8.0 视图学习笔记">
+<meta property="og:url" content="http://example.com/2026/11/13/MySQL%208.0%20%E8%A7%86%E5%9B%BE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MySQL 8.0 视图学习笔记用 EduCloud 的七个视图练习。建议按「先会查 → 再会写 → 然后会验算和排错」的顺序读。 1. 视图到底是什么普通视图把一条查询保存成一个有名字的数据库对象。你可以在 FROM 里用它，像查表一样查结果。底表数据变化后，下一次查询会按当时可见的数据计算。MySQL 8.0 的普通视图没有独立保存一份可定期刷新的查询结果。    对象 适用场景    表 长">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-13T12:14:37.000Z">
+<meta property="article:modified_time" content="2026-11-13T12:14:37.205Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>MySQL 8.0 视图学习笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MySQL 8.0 视图学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-11-13 20:14" pubdate>
+          2026年11月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MySQL 8.0 视图学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="MySQL-8-0-视图学习笔记"><a href="#MySQL-8-0-视图学习笔记" class="headerlink" title="MySQL 8.0 视图学习笔记"></a>MySQL 8.0 视图学习笔记</h1><p>用 EduCloud 的七个视图练习。建议按「先会查 → 再会写 → 然后会验算和排错」的顺序读。</p>
+<h2 id="1-视图到底是什么"><a href="#1-视图到底是什么" class="headerlink" title="1. 视图到底是什么"></a>1. 视图到底是什么</h2><p>普通视图把一条查询保存成一个有名字的数据库对象。你可以在 <code>FROM</code> 里用它，像查表一样查结果。底表数据变化后，下一次查询会按当时可见的数据计算。MySQL 8.0 的普通视图没有独立保存一份可定期刷新的查询结果。</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>表</td>
+<td>长期存储数据，比如提交记录</td>
+</tr>
+<tr>
+<td>普通 SELECT</td>
+<td>临时查看或只有一个接口用的查询</td>
+</tr>
+<tr>
+<td>CTE（WITH）</td>
+<td>给一条 SQL 里的中间结果起名字，方便分步骤写</td>
+</tr>
+<tr>
+<td>视图</td>
+<td>给多个调用者提供统一的查法，例如每人一行学习汇总</td>
+</tr>
+<tr>
+<td>汇总表</td>
+<td>有明确的性能需求时预先存统计值，还需设计刷新规则</td>
+</tr>
+</tbody></table>
+<p>建视图前先写一句话：<strong>每行代表什么，给谁查，怎么算。</strong> 同一个库有多少表，与需要多少视图无关。可复用的联查、统一统计口径、限制可见列，都是建视图的常见理由。</p>
+<h2 id="2-在-Navicat-里查、建、改"><a href="#2-在-Navicat-里查、建、改" class="headerlink" title="2. 在 Navicat 里查、建、改"></a>2. 在 Navicat 里查、建、改</h2><p>先在查询窗口执行下面三条，可以分别看到视图名单、定义和数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">FULL</span> TABLES <span class="hljs-keyword">FROM</span> edu_auth <span class="hljs-keyword">WHERE</span> Table_type <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;VIEW&#x27;</span>;<br><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">VIEW</span> edu_auth.v_daily_active;<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> edu_auth.v_daily_active <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> stat_date <span class="hljs-keyword">DESC</span> LIMIT <span class="hljs-number">10</span>;<br></code></pre></td></tr></table></figure>
+
+<p><code>SHOW CREATE VIEW</code> 的结果里，打开 <strong>Create View</strong> 那个单元格可以看到完整定义。它返回的是定义，是否能读数据要看 <code>SELECT</code> 的结果。若界面没显示数据，单独执行 <code>SELECT COUNT(*) FROM edu_auth.v_daily_active;</code>。查询成功时，哪怕视图为空，计数也会返回一行。</p>
+<p><strong>动手练习</strong>。下面用独立的学习名称，在测试库先运行 <code>AS</code> 后的查询，确认结果，再执行创建语句。示例沿用项目库名，执行前确认连接的是测试实例。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">SQL</span> SECURITY INVOKER <span class="hljs-keyword">VIEW</span> edu_auth.v_daily_active_learning <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> <span class="hljs-type">DATE</span>(create_time) <span class="hljs-keyword">AS</span> stat_date,<br>       <span class="hljs-built_in">COUNT</span>(<span class="hljs-keyword">DISTINCT</span> user_id) <span class="hljs-keyword">AS</span> active_users,<br>       <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">AS</span> login_count<br><span class="hljs-keyword">FROM</span> edu_auth.sys_login_log<br><span class="hljs-keyword">WHERE</span> success <span class="hljs-operator">=</span> <span class="hljs-number">1</span><br>  <span class="hljs-keyword">AND</span> user_id <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT NULL</span><br>  <span class="hljs-keyword">AND</span> create_time <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT NULL</span><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-type">DATE</span>(create_time);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>CREATE VIEW</code> 创建新视图，同名对象已经存在时会报错。</li>
+<li><code>ALTER VIEW</code> 修改已有视图，需要重新提供查询定义。<code>CREATE OR REPLACE VIEW</code> 可以创建或替换视图。改现有视图前，先保存完整定义并核对输出列、单位和调用方。</li>
+<li><code>DROP VIEW</code> 删除视图定义，底表数据仍在。引用这个视图的接口或其他视图可能受影响。</li>
+<li>输出列显式写名字，外部查询需要顺序时自己写 <code>ORDER BY</code>。定义中使用 <code>SELECT *</code> 时，创建时展开的列不会随底表新增字段自动扩展。</li>
+</ul>
+<h2 id="3-汇总怎么写，最容易错在哪里"><a href="#3-汇总怎么写，最容易错在哪里" class="headerlink" title="3. 汇总怎么写，最容易错在哪里"></a>3. 汇总怎么写，最容易错在哪里</h2><h3 id="先定每行代表什么"><a href="#先定每行代表什么" class="headerlink" title="先定每行代表什么"></a>先定每行代表什么</h3><p>每日活跃是一日一行，考试质量是一场考试一行，练习汇总是一人一行。这个决定通常对应 <code>GROUP BY</code> 的字段。日期和小时也要分清，<code>HOUR(create_time)</code> 只得到 0–23，跨日期的同一时段会合并。逐小时趋势需要保留日期。</p>
+<h3 id="两份明细先各自汇总，再合并"><a href="#两份明细先各自汇总，再合并" class="headerlink" title="两份明细先各自汇总，再合并"></a>两份明细先各自汇总，再合并</h3><p>假设一个学生有 <strong>3 次提交、2 条练习会话</strong>。直接按学生 ID 连接两份明细会得到 <strong>6 行</strong>，每条会话重复出现 3 次。如果时长是 60 秒和 90 秒，直接求和会得到 450 秒。原版练习汇总先把两边各自聚合成每人一行，再用用户 ID 合并，得到正确的 150 秒。</p>
+<p>用户名单可以用两边的用户 ID 做 <code>UNION</code>。这样只有会话或只有提交的人也能保留，再用 <code>LEFT JOIN</code> 带上各自统计。志愿汇总的原版以有时长的用户为起点，所以只有待审核报名的人不会出现。</p>
+<h3 id="把每个指标翻译成一句话"><a href="#把每个指标翻译成一句话" class="headerlink" title="把每个指标翻译成一句话"></a>把每个指标翻译成一句话</h3><ul>
+<li><code>COUNT(*)</code> 数行，<code>COUNT(列)</code> 忽略 NULL，<code>COUNT(DISTINCT 列)</code> 对非 NULL 值去重。用 <code>LEFT JOIN</code> 数明细时，数右表主键能让没有匹配的那组得到 0。</li>
+<li>通过率先确定分子和分母。按不同题目、不同用户、提交次数算，会得到不同结果。还要约定返回 0–1 还是 0–100。</li>
+<li>分母可能为 0，可以用 <code>分子 / NULLIF(分母, 0)</code> 得到 NULL。如果产品需要显示 0，再明确写出这个规则。</li>
+<li><code>WHERE</code> 先筛原始记录，<code>HAVING</code> 筛汇总后的组。对右表加过滤时，写在 <code>LEFT JOIN ... ON</code> 和写在 <code>WHERE</code> 的结果可能不同。后者可能把没有匹配记录的左表行去掉。</li>
+</ul>
+<h2 id="4-EduCloud-七个原版视图怎么读"><a href="#4-EduCloud-七个原版视图怎么读" class="headerlink" title="4. EduCloud 七个原版视图怎么读"></a>4. EduCloud 七个原版视图怎么读</h2><table>
+<thead>
+<tr>
+<th>视图</th>
+<th>一行是什么</th>
+<th>审查时看什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>edu_judge.v_user_study_summary</code></td>
+<td>一名有练习会话或练习提交的用户</td>
+<td>时长和提交分开汇总。通过率按不同题目算，范围 0–100。原版没有排除草稿。</td>
+</tr>
+<tr>
+<td><code>edu_judge.v_user_exam_time</code></td>
+<td>一名有考试会话的用户</td>
+<td><code>session_type = &#39;2&#39;</code> 才计入。场次按不同 <code>target_id</code> 算，同一场多次会话仍会累加时长。</td>
+</tr>
+<tr>
+<td><code>edu_judge.v_problem_quality</code></td>
+<td>一道有提交记录的题</td>
+<td>通过率按人数算。原版把状态 6 算作编译错误、4 算作超时，状态码需与后端对照。</td>
+</tr>
+<tr>
+<td><code>edu_auth.v_daily_active</code></td>
+<td>一天</td>
+<td>只算成功登录，排除空用户 ID，人数去重。</td>
+</tr>
+<tr>
+<td><code>edu_auth.v_hourly_active</code></td>
+<td>一天中的某个小时段</td>
+<td>跨日期合并。空用户 ID 不计入去重人数，但可能计入登录次数。</td>
+</tr>
+<tr>
+<td><code>edu_exam.v_exam_quality</code></td>
+<td>一场考试</td>
+<td>原版把考试学生记录数作为及格率分母，状态 2、3 算交卷。</td>
+</tr>
+<tr>
+<td><code>edu_community.v_volunteer_summary</code></td>
+<td>一名有时长记录的用户</td>
+<td>按活动去重，报名状态 0 算待审核。只有报名、没有时长的人不会出现。</td>
+</tr>
+</tbody></table>
+<p>七个原版视图都已在本地查通。上表记录现有 SQL 的写法，业务口径和实际统计数值仍要核对。</p>
+<h2 id="5-权限与常见报错"><a href="#5-权限与常见报错" class="headerlink" title="5. 权限与常见报错"></a>5. 权限与常见报错</h2><p><code>DEFINER</code> 是定义里记录的 MySQL 账号。<code>SQL SECURITY</code> 决定查询视图时，用谁的权限去访问底层对象。两种模式下，查询者都需要有权查询该视图。</p>
+<table>
+<thead>
+<tr>
+<th>安全模式</th>
+<th>谁需要有底表读取权限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>DEFINER</code></td>
+<td>视图定义者</td>
+</tr>
+<tr>
+<td><code>INVOKER</code></td>
+<td>发起查询的账号</td>
+</tr>
+</tbody></table>
+<p>导出里的 <code>&#39;edu&#39;@&#39;localhost&#39;</code> 是一个完整账号，用户名和主机部分都要对上。你本地恢复了定义者账号，并按依赖补了读取权限，所以原版视图得以查通。即使使用定义者模式，学生接口也应按登录身份约束查询范围。一个每人一行的视图本身不会自动只返回当前学生的数据。<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/stored-objects-security.html">MySQL 存储对象权限</a></p>
+<table>
+<thead>
+<tr>
+<th>报错</th>
+<th>先查什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1050 同名对象已存在</td>
+<td>用 <code>SHOW FULL TABLES</code> 区分表和视图。确认现有定义后，再决定使用原对象或另建学习版。</td>
+</tr>
+<tr>
+<td>1449 定义者不存在</td>
+<td>查视图的 <code>DEFINER</code>，确认准确的用户和主机名，再决定恢复账号还是调整视图权限模式。</td>
+</tr>
+<tr>
+<td>1356 视图无效或缺权限</td>
+<td>用 <code>SHOW CREATE VIEW</code> 看依赖，用 <code>SHOW COLUMNS</code> 核对字段，并按权限模式检查底表读取权限。</td>
+</tr>
+<tr>
+<td>1143 字段读取被拒绝</td>
+<td>根据错误里的账号、表和列检查授权，避免为了单个视图给整个库开权限。</td>
+</tr>
+<tr>
+<td>1064 SQL 语法错误</td>
+<td>先看错误位置和上一行，确认执行的是完整语句，检查从聊天复制带入的反斜杠。</td>
+</tr>
+</tbody></table>
+<h2 id="6-写入、性能与上线"><a href="#6-写入、性能与上线" class="headerlink" title="6. 写入、性能与上线"></a>6. 写入、性能与上线</h2><ul>
+<li><strong>写入</strong>。简单视图在满足条件时可以更新底表，插入还有额外要求。含聚合、<code>GROUP BY</code>、<code>DISTINCT</code> 或 <code>UNION</code> 的视图不可更新。EduCloud 这些统计视图用于读，业务写入走底表。<code>WITH CHECK OPTION</code> 可用于可更新视图，限制经视图写入的记录符合过滤条件。<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/view-updatability.html">MySQL 可更新视图</a></li>
+<li><strong>性能</strong>。先用 <code>EXPLAIN SELECT ...</code> 看执行计划。MySQL 可能把视图查询合并到外层，也可能使用内部临时结果。普通视图不能直接建索引，先看底表的连接、过滤和分组。外层 <code>LIMIT 10</code> 只限制输出，汇总可能仍需处理许多底表记录。<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/create-view.html">MySQL CREATE VIEW</a></li>
+<li><strong>交付</strong>。记录视图名、每行代表什么、依赖哪些表、输出列和单位、权限模式及验证结果。用 Flyway 管理时，把后续变更放在对应服务的新版本迁移里，保留已执行脚本。</li>
+</ul>
+<h2 id="7-三个练习"><a href="#7-三个练习" class="headerlink" title="7. 三个练习"></a>7. 三个练习</h2><ol>
+<li><strong>对算每日活跃。</strong> 选一个有登录数据的日期，对照下面两条。把日期换成你的实际数据日期。两边的登录次数和去重人数应该一致。</li>
+<li><strong>对算练习汇总。</strong> 选一个有多次提交和多条会话的学生。分别从底表算练习秒数、不同题目数、通过题目数和提交数。再看视图每列是否一致，并试着加入草稿过滤看差值。</li>
+<li><strong>辨认业务口径。</strong> 找一个有报名但没有时长的用户，确认原版志愿视图是否返回他。写下如果产品要求展示该用户，应该从哪些用户取并集。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> stat_date, active_users, login_count<br><span class="hljs-keyword">FROM</span> edu_auth.v_daily_active<br><span class="hljs-keyword">WHERE</span> stat_date <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2026-11-12&#x27;</span>;<br><br><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(<span class="hljs-keyword">DISTINCT</span> user_id) <span class="hljs-keyword">AS</span> active_users, <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">AS</span> login_count<br><span class="hljs-keyword">FROM</span> edu_auth.sys_login_log<br><span class="hljs-keyword">WHERE</span> success <span class="hljs-operator">=</span> <span class="hljs-number">1</span><br>  <span class="hljs-keyword">AND</span> user_id <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT NULL</span><br>  <span class="hljs-keyword">AND</span> create_time <span class="hljs-operator">&gt;=</span> <span class="hljs-string">&#x27;2026-11-12&#x27;</span><br>  <span class="hljs-keyword">AND</span> create_time <span class="hljs-operator">&lt;</span> <span class="hljs-string">&#x27;2026-11-13&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>查通只能证明这次查询能执行。用同一批底表数据对算，才能验证统计是否符合约定。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/sql/" class="category-chain-item">sql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MySQL 8.0 视图学习笔记</div>
+      <div>http://example.com/2026/11/13/MySQL 8.0 视图学习笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年11月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/11/13/%E6%A0%87%E5%87%86%E5%8C%96%E4%BA%BA%E6%A0%BC%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/11/13/20261104-191516-456292-Java%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2001%EF%BC%9A%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/" title="20261104-191516-456292-Java 学习笔记 01：入门基础">
+                        <span class="hidden-mobile">20261104-191516-456292-Java 学习笔记 01：入门基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
